@@ -1,0 +1,38 @@
+
+<view class="container">
+  <image class="top-theme" src="http://imgs.wp.aiuiot.com/laitou/banner/laitou.png"></image>
+  <l-search-bar class="top-search" placeholder="搜索企业/机构"
+            icon-size="32"
+            bg-color="#f6f6f6"
+            shape="circle" 
+            bind:linconfirm="endsearchList" >
+  </l-search-bar>
+
+  <block wx:for="{{companyData.companys}}">
+    <view class="card-companys">
+      <l-card type="avatar" 
+        l-class="card" 
+        image="{{item.logo}}"
+        title="{{item.name}}" 
+        describe="地址：{{item.province}} / {{item.city}} / {{item.district}}">
+        <view class="card-content">
+          <view>
+            <text>详细地址：{{item.address}}</text>
+          </view>
+          <view>
+            <text>信息来源：{{item.source}}</text>
+          </view>
+        </view>
+        <l-tag shape="circle" 
+            bg-color="#f3f3f3" 
+            font-color="#3963BC" 
+            slot="more"
+            size="large">
+            {{item.type}}
+          </l-tag>
+      </l-card>
+    </view>
+  </block>
+
+</view>
+

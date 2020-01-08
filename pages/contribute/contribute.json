@@ -1,0 +1,12 @@
+{
+  "component": true,
+  "usingComponents": {
+    "l-list": "/miniprogram_npm/lin-ui/list/index",
+    "l-input": "/miniprogram_npm/lin-ui/input/index",
+    "l-radio-group": "/miniprogram_npm/lin-ui/radio-group/index",
+    "l-radio": "/miniprogram_npm/lin-ui/radio/index",
+    "l-checkbox-group": "/miniprogram_npm/lin-ui/checkbox-group/index",
+    "l-checkbox": "/miniprogram_npm/lin-ui/checkbox/index",
+    "l-textarea": "/miniprogram_npm/lin-ui/textarea/index"
+  }
+}

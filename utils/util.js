@@ -1,0 +1,20 @@
+const promisic = function (func) {
+  return function (params = {}) {
+    return new Promise((resolve, reject) => {
+      const args = Object.assign(params, {
+        success: (res) => {
+          resolve(res);
+        },
+        fail: (error) => {
+          reject(error);
+        }
+      });
+      func(args);
+    });
+  };
+};
+
+// 使用-设计代理模式
+export {
+  promisic
+}

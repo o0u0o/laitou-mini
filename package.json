@@ -1,0 +1,14 @@
+{
+  "name": "laitou",
+  "version": "0.1.0",
+  "description": "来头-只为让求职更顺利一点点",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "岳川贵",
+  "license": "ISC",
+  "dependencies": {
+    "lin-ui": "^0.6.11"
+  }
+}

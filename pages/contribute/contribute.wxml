@@ -1,0 +1,18 @@
+<view class="container">
+    <view class="feedback">
+        <l-input label="公司名称" placeholder="请输入公司名称" required="{{true}}"></l-input>
+        <l-input label="省/直辖市/自治区" placeholder="广东省" required="{{true}}"></l-input>
+        <l-input label="城市" placeholder="深圳市" require="{{true}}"></l-input>
+        <l-input label="区/县" placeholder="南山区"></l-input>
+
+        <!--  备注  -->
+        <l-textarea label="ss" indicator="{{true}}" maxlength="140" placeholder="说说如何被坑的"></l-textarea>
+    </view>
+
+    <!--<view>-->
+    <!--    <l-list title="关于我们"></l-list>-->
+    <!--</view>-->
+
+</view>
+
+

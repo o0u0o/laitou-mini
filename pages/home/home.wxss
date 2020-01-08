@@ -1,0 +1,13 @@
+.top-theme {
+    width: 100%;
+    height: 260rpx;
+    display: flex;
+}
+
+.card-companys {
+    margin-top: 28rpx;
+}
+.card-content {
+    font-size: 24rpx;
+    color: #157658;
+}

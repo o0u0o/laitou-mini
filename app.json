@@ -1,0 +1,32 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/contribute/contribute",
+    "pages/detail/detail"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "nfudoudou",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "/imgs/bottom/home.png",
+        "selectedIconPath": "/imgs/bottom/home-fill.png"
+      },
+      {
+        "pagePath": "pages/contribute/contribute",
+        "text": "贡献",
+        "iconPath": "/imgs/bottom/发现.png",
+        "selectedIconPath": "/imgs/bottom/发现-fill.png"
+      }
+
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

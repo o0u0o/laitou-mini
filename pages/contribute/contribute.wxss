@@ -1,0 +1,8 @@
+/* pages/contribute/contribute.wxss */
+.feedback{
+    margin-top: 20rpx;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
