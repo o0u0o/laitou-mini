@@ -1,13 +1,53 @@
 <view class="container">
     <view class="feedback">
-        <l-input label="公司名称" placeholder="请输入公司名称" required="{{true}}"></l-input>
-        <l-input label="省/直辖市/自治区" placeholder="广东省" required="{{true}}"></l-input>
-        <l-input label="城市" placeholder="深圳市" require="{{true}}"></l-input>
-        <l-input label="区/县" placeholder="南山区"></l-input>
-
-        <!--  备注  -->
-        <l-textarea label="ss" indicator="{{true}}" maxlength="140" placeholder="说说如何被坑的"></l-textarea>
+        <view>
+            <l-input
+                    label-width="270"
+                    clear="{{true}}"
+                    bind:linblur="bindName"
+                    label="公司/机构名字"
+                    placeholder="请输入公司名称" required="{{true}}">
+            </l-input>
+            <l-input
+                    label-width="270"
+                    clear="{{true}}"
+                    label="类型"
+                    bind:linblur="bindType"
+                    placeholder="如：培训机构/疑似诈骗/疑似传销/..." required="{{true}}">
+            </l-input>
+            <l-input
+                    label-width="270"
+                    bind:linblur="bindProvince"
+                    label="省/直辖市/自治区" placeholder="如：广东省" required="{{true}}">
+            </l-input>
+            <l-input
+                    label-width="270"
+                    bind:linblur="bindCity"
+                    label="城市" placeholder="如：深圳市" require="{{true}}"></l-input>
+            <l-input
+                    label-width="270"
+                    bind:linblur="bindDistrict"
+                    label="区/县" placeholder="如：南山区"></l-input>
+            <l-input
+                    label-width="270"
+                    bind:linblur="bindAddress"
+                    label="详细地址" placeholder="如：某某大厦1987楼8号"></l-input>
+        </view>
+        <view class="remark">
+            <l-textarea indicator="{{true}}"
+                        maxlength="140"
+                        bind:linblur="bindRemark"
+                        placeholder="说说如何被坑的">
+            </l-textarea>
+        </view>
     </view>
+    <!--  提交  -->
+    <view class="submit">
+        <l-button type="success" bind:lintap="submitData" >提交</l-button>
+    </view>
+
+    <l-toast />
+    <!-- <view bindtap="show">触发</view> -->
 
     <!--<view>-->
     <!--    <l-list title="关于我们"></l-list>-->

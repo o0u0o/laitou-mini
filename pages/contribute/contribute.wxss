@@ -1,8 +1,22 @@
-/* pages/contribute/contribute.wxss */
+/* 反馈 */
 .feedback{
     margin-top: 20rpx;
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
+.remark{
+    margin-top: 20rpx;
+
+}
+
+/* 提交 */
+.submit{
+    margin-top: 20rpx;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

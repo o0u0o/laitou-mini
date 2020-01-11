@@ -12,6 +12,13 @@ class Company{
       }
     })
   }
+
+  // 添加公司/机构信息
+  static async setCompanyInfo(){
+    return await Http.request({
+      url: ``
+    })
+  }
 }
 
 export {

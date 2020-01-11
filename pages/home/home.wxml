@@ -1,13 +1,30 @@
 
 <view class="container">
-  <image class="top-theme" src="http://imgs.wp.aiuiot.com/laitou/banner/laitou.png"></image>
+  <!-- 轮播START -->
+  <swiper class="swiper"
+          indicator-dots
+          indicator-active-color="#157658"
+          autoplay
+          circular>
+    <block wx:for="{{bannerA.banners}}">
+      <swiper-item>
+        <image class="swiper" src="{{item.img}}"></image>
+      </swiper-item>
+    </block>
+  </swiper>
+  <!--  轮播END  --
+
+<!-- 搜索栏---START -->
   <l-search-bar class="top-search" placeholder="搜索企业/机构"
             icon-size="32"
             bg-color="#f6f6f6"
             shape="circle" 
             bind:linconfirm="endsearchList" >
   </l-search-bar>
+  <!-- 搜索栏目--END -->
 
+
+  <!-- 卡片--START -->
   <block wx:for="{{companyData.companys}}">
     <view class="card-companys">
       <l-card type="avatar" 
@@ -33,6 +50,7 @@
       </l-card>
     </view>
   </block>
+  <!-- 卡片--END -->
 
 </view>
 
