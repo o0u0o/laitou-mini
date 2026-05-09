@@ -13,19 +13,10 @@ import { config } from '../config/config';
 import { Http } from '../utils/http';
 
 // ---- 本地 JSON 数据（require 为同步，打包时内联） ----
-const localBanners    = require('../data/banners.json');
 const localCompanies  = require('../data/companies.json');
 const localCategories = require('../data/categories.json');
 
 class DataSource {
-
-  // ======================== 轮播图 ========================
-  static async getBanners() {
-    if (config.useLocalData) {
-      return localBanners;
-    }
-    return await Http.request({ url: 'banner/list' });
-  }
 
   // ======================== 公司列表（按城市） ========================
   static async getCompaniesByCity(cityName) {
