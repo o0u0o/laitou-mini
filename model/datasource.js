@@ -12,9 +12,9 @@
 import { config } from '../config/config';
 import { Http } from '../utils/http';
 
-// ---- 本地 JSON 数据（require 为同步，打包时内联） ----
-const localCompanies  = require('../data/companies.json');
-const localCategories = require('../data/categories.json');
+// ---- 本地数据（以 .js 模块形式导出，兼容小程序构建器） ----
+const localCompanies  = require('../data/companies.js');
+const localCategories = require('../data/categories.js');
 
 class DataSource {
 
