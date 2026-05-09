@@ -27,7 +27,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.9.3",
 	"appid": "wx170952d17cff2045",
-	"projectname": "laitou",
+	"projectname": "prepbox",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
