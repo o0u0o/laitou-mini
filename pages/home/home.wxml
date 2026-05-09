@@ -20,7 +20,7 @@
 <view class="container">
   <!-- 合规提示条 -->
   <view class="disclaimer">
-    平台内容仅作求职风险参考，不构成对企业的最终定性。发现失实可 <text class="link" bindtap="goAppeal">申诉、反馈</text>。
+    来头 · 求职前先查一查：平台内容仅作求职风险参考，不构成对企业的最终定性。发现失实可 <text class="link" bindtap="goAppeal">申诉、反馈</text>。
   </view>
 
   <!-- 搜索栏 START -->
