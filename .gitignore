@@ -1,0 +1,39 @@
+# ===== Node / npm =====
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ===== WeChat Mini Program =====
+# miniprogram_npm 由微信开发者工具通过 "构建 npm" 从 package.json 生成
+miniprogram_npm/
+
+# 微信开发者工具本地缓存与私密配置
+project.private.config.json
+.wxcloud/
+
+# ===== IDE / Editor =====
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+*~
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ===== Logs / Temp =====
+*.log
+logs/
+tmp/
+temp/
+
+# ===== Build output =====
+dist/
+build/
