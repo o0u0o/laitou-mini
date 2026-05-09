@@ -87,5 +87,11 @@ Page({
   // 跳转：投稿须知 / 隐私政策 / 申诉反馈
   goNotice(){ wx.navigateTo({ url: '/pages/notice/notice' }); },
   goPrivacy(){ wx.navigateTo({ url: '/pages/privacy/privacy' }); },
-  goAppeal(){ wx.navigateTo({ url: '/pages/appeal/appeal' }); }
+  goAppeal(){ wx.navigateTo({ url: '/pages/appeal/appeal' }); },
+
+  // 热门标签点击：等价触发一次搜索
+  onTagTap(e){
+    const kw = e.currentTarget.dataset.kw;
+    this.endsearchList({ detail: { value: kw } });
+  }
 })

@@ -1,9 +1,83 @@
 .container {
-    padding: var(--space-md) 0;
+    padding: 0 0 var(--space-md) 0;
 }
 
+/* ============= Hero 顶部品牌区 ============= */
+.hero {
+    position: relative;
+    padding: 60rpx var(--space-lg) var(--space-lg);
+    background: linear-gradient(160deg, #0F5C44 0%, #157658 60%, #1E8E6C 100%);
+    color: #FFFFFF;
+    border-bottom-left-radius: 32rpx;
+    border-bottom-right-radius: 32rpx;
+    overflow: hidden;
+}
+
+.hero-brand {
+    font-size: 40rpx;
+    font-weight: 700;
+    letter-spacing: 4rpx;
+    opacity: 0.92;
+}
+
+.hero-title {
+    margin-top: 12rpx;
+    font-size: 56rpx;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.hero-sub {
+    margin-top: var(--space-sm);
+    font-size: 26rpx;
+    line-height: 1.6;
+    opacity: 0.82;
+    margin-bottom: var(--space-lg);
+}
+
+/* lin-ui search-bar 外部类覆写 */
+.hero-search {
+    width: 100%;
+}
+.hero-search-container {
+    padding: 0 !important;
+    background: transparent !important;
+}
+.hero-search-input {
+    height: 96rpx !important;
+    border-radius: 48rpx !important;
+    padding: 0 var(--space-md) !important;
+    box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.18);
+}
+.hero-search-placeholder {
+    color: #999999 !important;
+    font-size: 28rpx !important;
+}
+.hero-search-icon {
+    margin-right: var(--space-sm) !important;
+}
+
+.hero-tags {
+    margin-top: var(--space-md);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+}
+.hero-tag {
+    padding: 8rpx 24rpx;
+    border-radius: 999rpx;
+    background-color: rgba(255, 255, 255, 0.18);
+    color: #FFFFFF;
+    font-size: 24rpx;
+    line-height: 1.5;
+}
+.hero-tag:active {
+    background-color: rgba(255, 255, 255, 0.32);
+}
+
+/* ============= 合规提示条 ============= */
 .disclaimer {
-    margin: 0 var(--space-md);
+    margin: var(--space-md);
     padding: var(--space-sm) var(--space-md);
     background-color: var(--color-warning-light);
     color: var(--color-warning);
@@ -16,6 +90,7 @@
     text-decoration: underline;
 }
 
+/* ============= 轮播 ============= */
 .swiper {
     width: 100%;
     height: 260rpx;
@@ -23,12 +98,9 @@
     overflow: hidden;
 }
 
-.top-search {
-    margin: var(--space-md) 0;
-}
-
+/* ============= 公司卡片 ============= */
 .card-companys {
-    margin-top: var(--space-lg);
+    margin: var(--space-lg) var(--space-md) 0;
 }
 
 .card-content {
@@ -37,6 +109,7 @@
     line-height: 1.6;
 }
 
+/* ============= 页脚链接 ============= */
 .footer-links {
     margin-top: 60rpx;
     padding: var(--space-lg) 0;
