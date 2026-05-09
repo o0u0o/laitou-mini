@@ -1,4 +1,5 @@
 import { config } from "./config/config";
+import { DataSource } from "./model/datasource";
 
 App({
   onLaunch: function () {
@@ -7,9 +8,9 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
-    // mock 开关开启时跳过真实登录
-    if (config.useMock) {
-      this.globalData.openID = 'mock-openid-0001';
+    // 本地数据模式下跳过真实登录
+    if (config.useLocalData) {
+      this.globalData.openID = 'local-openid-0001';
       return;
     }
 

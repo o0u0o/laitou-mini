@@ -1,7 +1,11 @@
 const config = {
   apiBaseUrl: 'https://laitou.aiuiot.com/laitou-java/app/',
-  // 开发联调开关：true 时所有请求走本地 mock，不走网络
-  useMock: true
+  /**
+   * 数据源开关：
+   *   true  → 读取 /data/*.json 本地数据（当前阶段，无后端依赖）
+   *   false → 走后端 API（后端就绪后切换）
+   */
+  useLocalData: true
 }
 
 export{

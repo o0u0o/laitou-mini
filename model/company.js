@@ -1,23 +1,18 @@
-import {Http} from "../utils/http";
+import { DataSource } from './datasource';
 
-class Company{
+class Company {
   static cityName = '深圳'
 
-  static async getCompanyByCity(){
-    const name = `${Company.cityName}`
-    return await Http.request({
-      url: `/app/company/list/city/${Company.cityName}`,
-      data:{
-        name
-      }
-    })
+  static async getCompanyByCity() {
+    return await DataSource.getCompaniesByCity(Company.cityName);
   }
 
-  // 添加公司/机构信息
-  static async setCompanyInfo(){
-    return await Http.request({
-      url: ``
-    })
+  static async searchByKeyword(keyword) {
+    return await DataSource.searchCompanies(keyword);
+  }
+
+  static async addCompanyInfo(companyData) {
+    return await DataSource.addCompany(companyData);
   }
 }
 
