@@ -53,22 +53,6 @@
     来头 · 求职前先查一查：平台内容仅作求职风险参考，不构成对企业的最终定性。发现失实可 <text class="link" bindtap="goAppeal">申诉、反馈</text>。
   </view>
 
-  <!-- 轮播 START -->
-  <view class="swiper-wrap">
-    <swiper class="swiper"
-            indicator-dots
-            indicator-active-color="#157658"
-            autoplay
-            circular>
-      <block wx:for="{{bannerA.banners}}" wx:key="id">
-        <swiper-item>
-          <image class="swiper" src="{{item.img}}"></image>
-        </swiper-item>
-      </block>
-    </swiper>
-  </view>
-  <!-- 轮播 END -->
-
   <!-- 分区标题 -->
   <view class="section-header">
     <view class="section-title">风险线索</view>
