@@ -2,7 +2,11 @@
   "pages": [
     "pages/home/home",
     "pages/contribute/contribute",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "pages/notice/notice",
+    "pages/privacy/privacy",
+    "pages/review-status/review-status",
+    "pages/appeal/appeal"
   ],
   "window": {
     "backgroundTextStyle": "light",

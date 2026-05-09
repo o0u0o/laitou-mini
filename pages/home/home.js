@@ -66,5 +66,10 @@ Page({
     //搜索回调
 
 
-  }
+  },
+
+  // 跳转：投稿须知 / 隐私政策 / 申诉反馈
+  goNotice(){ wx.navigateTo({ url: '/pages/notice/notice' }); },
+  goPrivacy(){ wx.navigateTo({ url: '/pages/privacy/privacy' }); },
+  goAppeal(){ wx.navigateTo({ url: '/pages/appeal/appeal' }); }
 })

@@ -1,0 +1,31 @@
+<view class="container">
+  <view class="title">投稿须知</view>
+
+  <view class="p">「来头」是基于公开信息与可核验事实的求职风险线索平台。投稿前请仔细阅读以下规则，您提交即视为同意。</view>
+
+  <view class="h2">一、欢迎提交的内容</view>
+  <view class="li">公开的法院判决、仲裁裁决、行政处罚、被执行/失信信息。</view>
+  <view class="li">官方媒体公开报道中涉及该企业的客观事实。</view>
+  <view class="li">您本人亲历且可提供书面证据的事实陈述（如劳动合同、工资条、加盖公章的文件）。</view>
+
+  <view class="h2">二、严禁的内容</view>
+  <view class="li">未经核实的指控、辱骂、侮辱性表达。</view>
+  <view class="li">将主观判断（如"骗子公司""传销组织"）作为对企业的定性结论。</view>
+  <view class="li">他人身份证号、手机号、住址、银行卡号、聊天记录原件等隐私信息。请先打码再上传。</view>
+  <view class="li">涉及商业秘密、未公开案件、未生效裁决的内容。</view>
+  <view class="li">违反国家法律法规、危害国家安全或社会公共利益的内容。</view>
+
+  <view class="h2">三、审核与发布</view>
+  <view class="li">投稿提交后默认 <text style="color:var(--color-primary)">不公开</text>，先进入审核池。</view>
+  <view class="li">审核标准：是否有可核验来源、是否客观陈述、是否涉及隐私。</view>
+  <view class="li">未通过审核的投稿不会公开展示，必要时会附简要驳回说明。</view>
+
+  <view class="h2">四、申诉与下架</view>
+  <view class="li">被提及的企业或当事人可通过「申诉/反馈」入口提交异议材料，平台将复核并视情况更正、下架。</view>
+  <view class="li">用户可随时申请删除自己提交的内容。</view>
+
+  <view class="h2">五、责任声明</view>
+  <view class="warn">
+    您应对所提交内容的真实性、合法性负责。如因内容失实、捏造或侵犯他人合法权益（包括但不限于名誉权、隐私权、商业信誉）造成的法律后果，将由提交人自行承担。平台保留删除内容、暂停账号及配合司法机关调查的权利。
+  </view>
+</view>

@@ -1,0 +1,34 @@
+<view class="container">
+  <view class="title">「来头」隐私政策</view>
+  <view class="meta">版本 v0.1（示例文本，正式上线前请由法务审阅）</view>
+
+  <view class="p">本政策用于向您说明，当您使用「来头」小程序时，我们会如何收集、使用、存储、共享和保护您的个人信息，以及您享有的权利。</view>
+
+  <view class="h2">一、我们收集的信息</view>
+  <view class="li">微信 openid：用于识别您的账号身份，便于关联您的投稿与申诉记录。</view>
+  <view class="li">您主动填写的内容：您在「贡献」页提交的公司/机构名称、地址、类型、事实描述以及上传的证据材料。</view>
+  <view class="li">必要的日志信息：访问时间、操作类型、设备型号等，用于服务稳定与安全风控。</view>
+
+  <view class="h2">二、我们如何使用信息</view>
+  <view class="li">用于展示与求职风险相关的可核验公开信息。</view>
+  <view class="li">用于内容审核、申诉受理、纠错与下架处理。</view>
+  <view class="li">用于产品改进、安全防护与依法配合监管要求。</view>
+
+  <view class="h2">三、信息的共享与披露</view>
+  <view class="p">我们不会将您的个人信息出售给任何第三方。仅在以下情形可能共享：依法律法规、监管要求或司法机关合法请求；为提供必要技术服务（如云存储）所必须，且要求其遵守同等保护义务。</view>
+
+  <view class="h2">四、信息存储与安全</view>
+  <view class="li">我们会采用合理的技术与管理措施保护您的信息，但请理解互联网环境无法保证绝对安全。</view>
+  <view class="li">证据材料仅对授权审核人员可见，不会在前台公开展示原件。</view>
+  <view class="li">非必要不长期保存。详细保存期限以最终上线版本说明为准。</view>
+
+  <view class="h2">五、您的权利</view>
+  <view class="li">您可随时联系我们查询、更正、删除您的投稿与个人信息。</view>
+  <view class="li">您可撤回此前给予的同意，但可能影响相关功能的使用。</view>
+
+  <view class="h2">六、未成年人</view>
+  <view class="p">本服务不面向未满 14 周岁的未成年人。如发现相关情形，我们将及时删除相关数据。</view>
+
+  <view class="h2">七、联系我们</view>
+  <view class="p">如对本政策有任何疑问、意见或投诉，请通过小程序内「申诉/反馈」入口联系我们。</view>
+</view>

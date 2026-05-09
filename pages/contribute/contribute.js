@@ -19,7 +19,22 @@ Page({
       address: '',
       remark: ''
     },
+    agreed: false
+  },
 
+  // 切换同意状态
+  toggleAgree(){
+    this.setData({ agreed: !this.data.agreed });
+  },
+
+  // 跳转投稿须知
+  goNotice(){
+    wx.navigateTo({ url: '/pages/notice/notice' });
+  },
+
+  // 跳转隐私政策
+  goPrivacy(){
+    wx.navigateTo({ url: '/pages/privacy/privacy' });
   },
 
   //绑定公司名字
@@ -82,6 +97,23 @@ Page({
   submitData(e){
     let _this = this;
 
+    // 合规门槛：必须勾选同意
+    if (!_this.data.agreed) {
+      wx.lin.showToast({
+        title: '请先阅读并同意《投稿须知》与《隐私政策》',
+        icon: 'error'
+      });
+      return;
+    }
+    const c = _this.data.companyData;
+    if (!c.name || !c.type || !c.province) {
+      wx.lin.showToast({
+        title: '请完整填写必填项',
+        icon: 'error'
+      });
+      return;
+    }
+
     console.log("======================")
     console.log(_this.data.companyData)
     console.log("======================")
@@ -105,10 +137,8 @@ Page({
         }
 
         if(res.data.code === 0){
-          wx.lin.showToast({
-            title: "提交成功",
-            icon: 'success',
-          })
+          // 提交成功 → 进入「审核中」状态页
+          wx.redirectTo({ url: '/pages/review-status/review-status' });
         }
         
 

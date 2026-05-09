@@ -2,6 +2,21 @@
     padding: var(--space-md);
 }
 
+/* 顶部提示 */
+.notice-bar {
+    background-color: var(--color-warning-light);
+    color: var(--color-warning);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: 12rpx;
+    font-size: 24rpx;
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+}
+.notice-bar .link {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
 /* 反馈表单 */
 .feedback {
     margin-top: var(--space-md);
@@ -16,6 +31,35 @@
 
 .remark {
     margin-top: var(--space-md);
+}
+
+/* 同意区 */
+.agree {
+    margin-top: var(--space-md);
+    display: flex;
+    align-items: flex-start;
+    font-size: 24rpx;
+    color: var(--color-text-2);
+    line-height: 1.6;
+}
+.agree .check {
+    flex-shrink: 0;
+    width: 32rpx;
+    height: 32rpx;
+    border: 2rpx solid var(--color-border);
+    border-radius: 6rpx;
+    margin-right: var(--space-sm);
+    margin-top: 4rpx;
+    text-align: center;
+    line-height: 28rpx;
+    color: #FFFFFF;
+}
+.agree .check.checked {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+.agree .link {
+    color: var(--color-primary);
 }
 
 /* 提交按钮区 */
