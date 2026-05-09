@@ -1,7 +1,5 @@
 import {Company} from "../../model/company";
 import {Banner} from "../../model/banner";
-import {config} from "../../config/config";
-import {Mock} from "../../utils/mock";
 
 Page({
 
@@ -33,45 +31,17 @@ Page({
     console.log(bannerA && bannerA.banners)
     this.setData({ bannerA })
 
-    // mock 模式下默认展示一批示例公司数据，便于预览列表样式
-    if (config.useMock) {
-      const hit = Mock.match('/company/list/like');
-      if (hit) this.setData({ companyData: hit.data });
-    }
+    // 默认加载公司列表
+    const companyData = await Company.searchByKeyword('');
+    this.setData({ companyData });
   },
 
-  //结束搜索
-  endsearchList(e) {
-    let _this = this;
-    console.log(e.detail.value)
-
-    // mock 模式直接走本地数据，不发网络请求
-    if (config.useMock) {
-      const hit = Mock.match('/company/list/like');
-      if (hit) {
-        _this.setData({ companyData: hit.data });
-        return;
-      }
-    }
-
-    wx.request({
-      url: 'https://laitou.aiuiot.com/laitou-java/app/company/list/like',
-      data: {
-        keyword: e.detail.value
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success(res) {
-        _this.setData({
-          companyData: res.data
-        })
-
-        console.log('查询数据成功')
-        console.log(res.data)
-        console.log(_this.data.companyData)
-      }
-    })
+  // 搜索
+  async endsearchList(e) {
+    const keyword = e.detail.value;
+    console.log('搜索关键词:', keyword);
+    const companyData = await Company.searchByKeyword(keyword);
+    this.setData({ companyData });
   },
 
 

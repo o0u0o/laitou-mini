@@ -39,59 +39,78 @@ Page({
 
   //绑定公司名字
   bindName(e){
-    console.log(e.detail.value)
-    let _this = this;
-    _this.data.companyData.name = e.detail.value
-    console.log(this.data.companyData)
+    this.data.companyData.name = e.detail.value;
   },
 
   //绑定类型
   bindType(e){
-    console.log(e.detail.value)
-    let _this = this;
-    _this.data.companyData.type = e.detail.value
-    console.log(this.data.companyData)
+    this.data.companyData.type = e.detail.value;
   },
 
   //绑定省
   bindProvince(e){
-    console.log(e.detail.value)
-    let _this = this;
-    _this.data.companyData.province = e.detail.value
-    console.log(this.data.companyData)
+    this.data.companyData.province = e.detail.value;
   },
 
   //绑定地址
   bindAddress(e){
-    console.log(e.detail.value)
-    let _this = this;
-    _this.data.companyData.address = e.detail.value
-    console.log(this.data.companyData)
+    this.data.companyData.address = e.detail.value;
   },
 
   //绑定城市
   bindCity(e){
-    console.log(e.detail.value)
-    let _this = this;
-    _this.data.companyData.city = e.detail.value
-    console.log(this.data.companyData)
+    this.data.companyData.city = e.detail.value;
   },
 
   //绑定区
   bindDistrict(e){
-    console.log(e.detail.value)
-    let _this = this;
-    _this.data.companyData.district = e.detail.value
-    console.log(this.data.companyData)
+    this.data.companyData.district = e.detail.value;
   },
 
   //绑定备注
   bindRemark(e){
-    console.log(e.detail.value)
-    let _this = this;
-    _this.data.companyData.remark = e.detail.value
-    console.log(this.data.companyData)
+    this.data.companyData.remark = e.detail.value;
   },
+
+  //提交数据
+  async submitData(e){
+    // 合规门槛：必须勾选同意
+    if (!this.data.agreed) {
+      wx.lin.showToast({
+        title: '请先阅读并同意《投稿须知》与《隐私政策》',
+        icon: 'error'
+      });
+      return;
+    }
+    const c = this.data.companyData;
+    if (!c.name || !c.type || !c.province) {
+      wx.lin.showToast({
+        title: '请完整填写必填项',
+        icon: 'error'
+      });
+      return;
+    }
+
+    const { Company } = require('../../model/company');
+    const res = await Company.addCompanyInfo(c);
+
+    if (res && res.code === 500) {
+      wx.lin.showToast({ title: '已有该信息', icon: 'error' });
+      return;
+    }
+    if (res && res.code === 0) {
+      wx.redirectTo({ url: '/pages/review-status/review-status' });
+    }
+  },
+
+  /**
+   * 组件的方法列表
+   */
+  methods: {
+
+  }
+
+})
 
   //提交数据到服务器
   submitData(e){

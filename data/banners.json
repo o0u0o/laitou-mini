@@ -1,0 +1,7 @@
+{
+  "banners": [
+    { "id": 1, "img": "https://img.icons8.com/color/720/conference-call.png" },
+    { "id": 2, "img": "https://img.icons8.com/color/720/permanent-job.png" },
+    { "id": 3, "img": "https://img.icons8.com/color/720/job.png" }
+  ]
+}
