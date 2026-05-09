@@ -1,56 +1,69 @@
+<wxs module="tagColor">
+  /**
+   * 根据公司/机构类型返回标签的语义化配色
+   *  - 诈骗 / 传销 → 红色（danger）
+   *  - 培训 / 疑似 → 橙色（warning）
+   *  - 其它       → 主色绿（primary）
+   */
+  module.exports = function (type) {
+    if (!type) return { bg: '#F0F2F5', font: '#666666' };
+    if (type.indexOf('诈骗') > -1 || type.indexOf('传销') > -1) {
+      return { bg: '#FDECEC', font: '#D94F4F' };
+    }
+    if (type.indexOf('培训') > -1 || type.indexOf('疑似') > -1) {
+      return { bg: '#FEF4E5', font: '#E8A33D' };
+    }
+    return { bg: '#E8F3EF', font: '#157658' };
+  }
+</wxs>
 
 <view class="container">
-  <!-- 轮播START -->
+  <!-- 搜索栏 START -->
+  <l-search-bar class="top-search"
+                placeholder="搜索企业/机构"
+                icon-size="32"
+                bg-color="#FAFAFA"
+                shape="circle"
+                bind:linconfirm="endsearchList">
+  </l-search-bar>
+  <!-- 搜索栏 END -->
+
+  <!-- 轮播 START -->
   <swiper class="swiper"
           indicator-dots
           indicator-active-color="#157658"
           autoplay
           circular>
-    <block wx:for="{{bannerA.banners}}">
+    <block wx:for="{{bannerA.banners}}" wx:key="id">
       <swiper-item>
         <image class="swiper" src="{{item.img}}"></image>
       </swiper-item>
     </block>
   </swiper>
-  <!--  轮播END  --
+  <!-- 轮播 END -->
 
-<!-- 搜索栏---START -->
-  <l-search-bar class="top-search" placeholder="搜索企业/机构"
-            icon-size="32"
-            bg-color="#f6f6f6"
-            shape="circle" 
-            bind:linconfirm="endsearchList" >
-  </l-search-bar>
-  <!-- 搜索栏目--END -->
-
-
-  <!-- 卡片--START -->
-  <block wx:for="{{companyData.companys}}">
+  <!-- 卡片列表 START -->
+  <block wx:for="{{companyData.companys}}" wx:key="id">
     <view class="card-companys">
-      <l-card type="avatar" 
-        l-class="card" 
-        image="{{item.logo}}"
-        title="{{item.name}}" 
-        describe="地址：{{item.province}} / {{item.city}} / {{item.district}}">
+      <l-card type="avatar"
+              l-class="card"
+              image="{{item.logo}}"
+              title="{{item.name}}"
+              describe="地址：{{item.province}} / {{item.city}} / {{item.district}}">
         <view class="card-content">
-          <view>
-            <text>详细地址：{{item.address}}</text>
-          </view>
-          <view>
-            <text>信息来源：{{item.source}}</text>
-          </view>
+          <view><text>详细地址：{{item.address}}</text></view>
+          <view><text>信息来源：{{item.source}}</text></view>
         </view>
-        <l-tag shape="circle" 
-            bg-color="#f3f3f3" 
-            font-color="#3963BC" 
-            slot="more"
-            size="large">
-            {{item.type}}
-          </l-tag>
+        <l-tag shape="circle"
+               bg-color="{{tagColor(item.type).bg}}"
+               font-color="{{tagColor(item.type).font}}"
+               slot="more"
+               size="large">
+          {{item.type}}
+        </l-tag>
       </l-card>
     </view>
   </block>
-  <!-- 卡片--END -->
-
+  <!-- 卡片列表 END -->
 </view>
 

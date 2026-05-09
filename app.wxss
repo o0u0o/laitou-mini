@@ -1,4 +1,39 @@
-page{
-    /* background-color: #f5f5f5; */
+/* ==========================================================================
+   全局设计 Token（来头小程序）
+   - 主色：深绿，传递"安全/可信/避坑"
+   - 风险色：用于"疑似诈骗/传销"等高警示标签
+   - 中性灰：统一为单一灰阶
+   ========================================================================== */
+page {
+    /* 品牌主色 */
+    --color-primary: #157658;
+    --color-primary-light: #E8F3EF;
+
+    /* 语义色 */
+    --color-danger: #D94F4F;
+    --color-danger-light: #FDECEC;
+    --color-warning: #E8A33D;
+    --color-warning-light: #FEF4E5;
+    --color-info: #3963BC;
+    --color-info-light: #ECF0FA;
+
+    /* 中性色阶 */
+    --color-bg: #F5F5F5;
+    --color-bg-soft: #FAFAFA;
+    --color-border: #EDEDED;
+    --color-text: #222222;
+    --color-text-2: #666666;
+    --color-text-3: #999999;
+
+    /* 间距 */
+    --space-xs: 8rpx;
+    --space-sm: 16rpx;
+    --space-md: 24rpx;
+    --space-lg: 32rpx;
+
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-size: 28rpx;
+    line-height: 1.5;
 }
 
