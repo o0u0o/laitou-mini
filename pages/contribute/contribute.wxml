@@ -1,4 +1,11 @@
 <view class="container">
+    <!-- 顶部合规提示 -->
+    <view class="notice-bar">
+        投稿默认<text class="link" bindtap="goNotice">不公开</text>，需先通过审核。提交即视为同意
+        <text class="link" bindtap="goNotice">《投稿须知》</text>与
+        <text class="link" bindtap="goPrivacy">《隐私政策》</text>。
+    </view>
+
     <view class="feedback">
         <view>
             <l-input
@@ -13,7 +20,7 @@
                     clear="{{true}}"
                     label="类型"
                     bind:linblur="bindType"
-                    placeholder="如：培训机构/疑似诈骗/疑似传销/..." required="{{true}}">
+                    placeholder="如：劳动争议/行政处罚/失信被执行 等可核验类别" required="{{true}}">
             </l-input>
             <l-input
                     label-width="270"
@@ -35,24 +42,31 @@
         </view>
         <view class="remark">
             <l-textarea indicator="{{true}}"
-                        maxlength="140"
+                        maxlength="500"
                         bind:linblur="bindRemark"
-                        placeholder="说说如何被坑的">
+                        placeholder="请客观陈述事实，并附可核验来源（如裁判文书编号、媒体报道链接）。请勿包含他人身份证号、手机号等隐私信息。">
             </l-textarea>
         </view>
+
+        <!-- 同意确认 -->
+        <view class="agree" bindtap="toggleAgree">
+            <view class="check {{agreed ? 'checked' : ''}}">{{agreed ? '✓' : ''}}</view>
+            <view>
+                我已阅读并同意
+                <text class="link" catchtap="goNotice">《投稿须知》</text>与
+                <text class="link" catchtap="goPrivacy">《隐私政策》</text>，
+                承诺所提交内容真实、合法，不含他人隐私或不实指控。
+            </view>
+        </view>
     </view>
+
     <!--  提交  -->
     <view class="submit">
-        <l-button type="success" bind:lintap="submitData" >提交</l-button>
+        <l-button type="success" bind:lintap="submitData">提交</l-button>
+        <view class="tips">提交后进入审核池，审核通过后才会公开展示。</view>
     </view>
 
     <l-toast />
-    <!-- <view bindtap="show">触发</view> -->
-
-    <!--<view>-->
-    <!--    <l-list title="关于我们"></l-list>-->
-    <!--</view>-->
-
 </view>
 
 

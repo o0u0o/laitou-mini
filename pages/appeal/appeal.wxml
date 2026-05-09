@@ -1,0 +1,45 @@
+<view class="container">
+  <view class="tip">
+    若您是被提及的企业/当事人，或您发现某条内容失实，可在此处提交申诉。请尽量提供可核验材料的链接或文件名，便于复核。
+  </view>
+
+  <view class="form">
+    <l-input label-width="200"
+             clear="{{true}}"
+             bind:linblur="bindType"
+             label="申诉类型"
+             placeholder="如：企业申诉 / 内容更正 / 删除请求 / 其他"
+             required="{{true}}">
+    </l-input>
+    <view class="field-gap">
+      <l-input label-width="200"
+               clear="{{true}}"
+               bind:linblur="bindTarget"
+               label="涉及条目"
+               placeholder="公司/机构名称或条目编号"
+               required="{{true}}">
+      </l-input>
+    </view>
+    <view class="field-gap">
+      <l-input label-width="200"
+               clear="{{true}}"
+               bind:linblur="bindContact"
+               label="联系方式"
+               placeholder="邮箱或手机号，便于回复（选填）">
+      </l-input>
+    </view>
+    <view class="field-gap">
+      <l-textarea indicator="{{true}}"
+                  maxlength="500"
+                  bind:linblur="bindContent"
+                  placeholder="请描述申诉理由，并附可核验材料的链接或说明">
+      </l-textarea>
+    </view>
+  </view>
+
+  <view class="actions">
+    <l-button type="primary" bind:lintap="submit">提交申诉</l-button>
+  </view>
+
+  <l-toast />
+</view>

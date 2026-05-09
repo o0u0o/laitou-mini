@@ -1,0 +1,27 @@
+.container {
+    padding: var(--space-lg) var(--space-md);
+}
+
+.tip {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    padding: var(--space-md);
+    border-radius: 12rpx;
+    font-size: 26rpx;
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+}
+
+.form {
+    background-color: #FFFFFF;
+    border-radius: 12rpx;
+    padding: var(--space-md);
+}
+
+.field-gap {
+    margin-top: var(--space-sm);
+}
+
+.actions {
+    margin-top: var(--space-lg);
+}

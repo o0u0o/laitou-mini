@@ -1,0 +1,17 @@
+<view class="container">
+  <view class="icon">✓</view>
+  <view class="title">提交成功，等待审核</view>
+  <view class="desc">您的投稿已进入审核池，默认不公开展示。审核通过后，相关信息才会出现在公开页面。</view>
+
+  <view class="steps">
+    <view class="step"><view class="step-no">1</view><view>已收到您的投稿，记录已加密留存。</view></view>
+    <view class="step"><view class="step-no">2</view><view>审核员将依据公开来源与证据对内容进行核验。</view></view>
+    <view class="step"><view class="step-no">3</view><view>通过后将公开展示；未通过则不会公开，您可在反馈中查询原因。</view></view>
+    <view class="step"><view class="step-no">4</view><view>如需撤回或更正，请通过「申诉/反馈」联系我们。</view></view>
+  </view>
+
+  <view class="actions">
+    <l-button type="primary" bind:lintap="goHome">返回首页</l-button>
+    <l-button plain bind:lintap="goAppeal">申诉 / 反馈</l-button>
+  </view>
+</view>

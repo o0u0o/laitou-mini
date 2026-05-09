@@ -18,6 +18,11 @@
 </wxs>
 
 <view class="container">
+  <!-- 合规提示条 -->
+  <view class="disclaimer">
+    平台内容仅作求职风险参考，不构成对企业的最终定性。发现失实可 <text class="link" bindtap="goAppeal">申诉、反馈</text>。
+  </view>
+
   <!-- 搜索栏 START -->
   <l-search-bar class="top-search"
                 placeholder="搜索企业/机构"
@@ -65,5 +70,14 @@
     </view>
   </block>
   <!-- 卡片列表 END -->
+
+  <!-- 页脚合规入口 -->
+  <view class="footer-links">
+    <text class="link" bindtap="goNotice">投稿须知</text>
+    <text class="sep">·</text>
+    <text class="link" bindtap="goPrivacy">隐私政策</text>
+    <text class="sep">·</text>
+    <text class="link" bindtap="goAppeal">申诉 / 反馈</text>
+  </view>
 </view>
 
