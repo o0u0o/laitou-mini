@@ -50,7 +50,8 @@ class DataSource {
         c.name.toLowerCase().indexOf(kw) > -1 ||
         c.type.indexOf(kw) > -1 ||
         c.address.indexOf(kw) > -1 ||
-        (c.source && c.source.indexOf(kw) > -1)
+        (c.source && c.source.indexOf(kw) > -1) ||
+        (c.remark && c.remark.indexOf(kw) > -1)
       );
       return { companys: filtered.length ? filtered : localCompanies.companys };
     }
