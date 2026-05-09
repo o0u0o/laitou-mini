@@ -54,18 +54,26 @@
   </view>
 
   <!-- 轮播 START -->
-  <swiper class="swiper"
-          indicator-dots
-          indicator-active-color="#157658"
-          autoplay
-          circular>
-    <block wx:for="{{bannerA.banners}}" wx:key="id">
-      <swiper-item>
-        <image class="swiper" src="{{item.img}}"></image>
-      </swiper-item>
-    </block>
-  </swiper>
+  <view class="swiper-wrap">
+    <swiper class="swiper"
+            indicator-dots
+            indicator-active-color="#157658"
+            autoplay
+            circular>
+      <block wx:for="{{bannerA.banners}}" wx:key="id">
+        <swiper-item>
+          <image class="swiper" src="{{item.img}}"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
   <!-- 轮播 END -->
+
+  <!-- 分区标题 -->
+  <view class="section-header">
+    <view class="section-title">风险线索</view>
+    <view class="section-extra">仅供参考</view>
+  </view>
 
   <!-- 卡片列表 START -->
   <block wx:for="{{companyData.companys}}" wx:key="id">

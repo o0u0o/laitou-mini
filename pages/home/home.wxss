@@ -5,19 +5,29 @@
 /* ============= Hero 顶部品牌区 ============= */
 .hero {
     position: relative;
-    padding: 60rpx var(--space-lg) var(--space-lg);
-    background: linear-gradient(160deg, #0F5C44 0%, #157658 60%, #1E8E6C 100%);
+    padding: 64rpx var(--space-lg) 40rpx;
+    background: linear-gradient(165deg, #0E5C44 0%, #157658 55%, #2A9C77 100%);
     color: #FFFFFF;
-    border-bottom-left-radius: 32rpx;
-    border-bottom-right-radius: 32rpx;
+    border-bottom-left-radius: 36rpx;
+    border-bottom-right-radius: 36rpx;
     overflow: hidden;
+}
+.hero::after {
+    content: '';
+    position: absolute;
+    right: -120rpx;
+    top: -120rpx;
+    width: 360rpx;
+    height: 360rpx;
+    background: radial-gradient(circle, rgba(255,255,255,0.10), rgba(255,255,255,0));
+    pointer-events: none;
 }
 
 .hero-brand {
-    font-size: 40rpx;
+    font-size: 36rpx;
     font-weight: 700;
     letter-spacing: 4rpx;
-    opacity: 0.92;
+    opacity: 0.85;
 }
 
 .hero-title {
@@ -31,8 +41,8 @@
     margin-top: var(--space-sm);
     font-size: 26rpx;
     line-height: 1.6;
-    opacity: 0.82;
-    margin-bottom: var(--space-lg);
+    opacity: 0.78;
+    margin-bottom: 36rpx;
 }
 
 /* lin-ui search-bar 外部类覆写 */
@@ -47,10 +57,10 @@
     height: 96rpx !important;
     border-radius: 48rpx !important;
     padding: 0 var(--space-md) !important;
-    box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.18);
+    box-shadow: 0 12rpx 28rpx rgba(0, 60, 40, 0.22);
 }
 .hero-search-placeholder {
-    color: #999999 !important;
+    color: #B5B5B5 !important;
     font-size: 28rpx !important;
 }
 .hero-search-icon {
@@ -58,55 +68,96 @@
 }
 
 .hero-tags {
-    margin-top: var(--space-md);
+    margin-top: 28rpx;
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-sm);
 }
 .hero-tag {
-    padding: 8rpx 24rpx;
+    padding: 10rpx 26rpx;
     border-radius: 999rpx;
-    background-color: rgba(255, 255, 255, 0.18);
-    color: #FFFFFF;
+    background-color: #FFFFFF;
+    color: var(--color-primary);
     font-size: 24rpx;
     line-height: 1.5;
+    font-weight: 500;
+    box-shadow: 0 4rpx 10rpx rgba(0, 60, 40, 0.10);
 }
 .hero-tag:active {
-    background-color: rgba(255, 255, 255, 0.32);
+    transform: scale(0.96);
+    background-color: #F2FBF7;
 }
 
-/* ============= 合规提示条 ============= */
+/* ============= 合规提示条（低饱和主色提示） ============= */
 .disclaimer {
     margin: var(--space-md);
     padding: var(--space-sm) var(--space-md);
-    background-color: var(--color-warning-light);
-    color: var(--color-warning);
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
     font-size: 22rpx;
     line-height: 1.6;
     border-radius: 12rpx;
+    border-left: 6rpx solid var(--color-primary);
 }
 .disclaimer .link {
     color: var(--color-primary);
+    font-weight: 600;
     text-decoration: underline;
 }
 
 /* ============= 轮播 ============= */
+.swiper-wrap {
+    margin: 0 var(--space-md);
+}
 .swiper {
     width: 100%;
-    height: 260rpx;
-    border-radius: 12rpx;
+    height: 240rpx;
+    border-radius: 16rpx;
     overflow: hidden;
+}
+
+/* ============= 分区标题 ============= */
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: var(--space-lg) var(--space-md) var(--space-sm);
+}
+.section-title {
+    font-size: 30rpx;
+    font-weight: 700;
+    color: var(--color-text);
+    position: relative;
+    padding-left: 18rpx;
+}
+.section-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8rpx;
+    bottom: 8rpx;
+    width: 6rpx;
+    border-radius: 3rpx;
+    background: var(--color-primary);
+}
+.section-extra {
+    font-size: 22rpx;
+    color: var(--color-text-3);
 }
 
 /* ============= 公司卡片 ============= */
 .card-companys {
-    margin: var(--space-lg) var(--space-md) 0;
+    margin: var(--space-sm) var(--space-md) 0;
+    background-color: #FFFFFF;
+    border-radius: 16rpx;
+    padding: var(--space-sm);
+    box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.04);
 }
 
 .card-content {
     font-size: 24rpx;
     color: var(--color-text-2);
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 /* ============= 页脚链接 ============= */
