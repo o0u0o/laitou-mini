@@ -1,9 +1,13 @@
 .container {
     padding: var(--space-md);
+    padding-bottom: 120rpx;
 }
 
-/* 顶部提示 */
+/* ================= 顶部提示 ================= */
 .notice-bar {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
     background-color: var(--color-warning-light);
     color: var(--color-warning);
     padding: var(--space-sm) var(--space-md);
@@ -12,28 +16,84 @@
     line-height: 1.6;
     margin-bottom: var(--space-md);
 }
+.notice-bar .notice-text { flex: 1; }
 .notice-bar .link {
     color: var(--color-primary);
     text-decoration: underline;
 }
 
-/* 反馈表单 */
-.feedback {
-    margin-top: var(--space-md);
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+/* ================= 表单卡片 ================= */
+.form-card {
     background-color: #FFFFFF;
     border-radius: 12rpx;
     padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
 }
 
-.remark {
-    margin-top: var(--space-md);
+.field { width: 100%; }
+
+.field-label {
+    font-size: 28rpx;
+    color: var(--color-text-1);
+    margin-bottom: var(--space-xs);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.field-label.required::before {
+    content: '*';
+    color: var(--color-danger);
+    margin-right: 6rpx;
 }
 
-/* 同意区 */
+.counter {
+    font-size: 22rpx;
+    color: var(--color-text-3);
+    font-weight: normal;
+}
+
+/* ================= radio 类型 ================= */
+.radio-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16rpx 24rpx;
+    padding: 8rpx 0;
+}
+.radio-item { display: flex; align-items: center; }
+.radio-text {
+    font-size: 26rpx;
+    color: var(--color-text-1);
+    margin-left: 4rpx;
+}
+
+/* ================= region picker ================= */
+.picker-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20rpx 24rpx;
+    background-color: #F7F8FA;
+    border-radius: 8rpx;
+    font-size: 28rpx;
+    color: var(--color-text-1);
+    min-height: 72rpx;
+    box-sizing: border-box;
+}
+.picker-trigger.placeholder {
+    color: var(--color-text-3);
+}
+
+/* ================= 错误提示 ================= */
+.err-tip {
+    color: var(--color-danger);
+    font-size: 22rpx;
+    margin-top: 8rpx;
+    line-height: 1.4;
+}
+
+/* ================= 同意区 ================= */
 .agree {
     margin-top: var(--space-md);
     display: flex;
@@ -41,6 +101,7 @@
     font-size: 24rpx;
     color: var(--color-text-2);
     line-height: 1.6;
+    padding: 0 var(--space-xs);
 }
 .agree .check {
     flex-shrink: 0;
@@ -58,22 +119,39 @@
     background-color: var(--color-primary);
     border-color: var(--color-primary);
 }
-.agree .link {
-    color: var(--color-primary);
-}
+.agree .agree-text { flex: 1; }
+.agree .link { color: var(--color-primary); }
 
-/* 提交按钮区 */
+/* ================= 提交区 ================= */
 .submit {
     margin-top: var(--space-lg);
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: var(--space-sm);
 }
-
 .tips {
-    margin-top: var(--space-sm);
     font-size: 24rpx;
     color: var(--color-text-3);
     text-align: center;
+}
+
+/* ================= 预览弹窗 ================= */
+.preview {
+    padding: var(--space-sm) 0;
+    text-align: left;
+    font-size: 26rpx;
+    color: var(--color-text-1);
+    line-height: 1.7;
+}
+.preview-row {
+    margin-bottom: 12rpx;
+    word-break: break-all;
+}
+.preview-row .k {
+    color: var(--color-text-3);
+    margin-right: 8rpx;
+}
+.preview-row .v {
+    color: var(--color-text-2);
 }
