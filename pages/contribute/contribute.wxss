@@ -1,22 +1,35 @@
-/* 反馈 */
-.feedback{
-    margin-top: 20rpx;
+.container {
+    padding: var(--space-md);
+}
+
+/* 反馈表单 */
+.feedback {
+    margin-top: var(--space-md);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: #FFFFFF;
+    border-radius: 12rpx;
+    padding: var(--space-md);
+}
+
+.remark {
+    margin-top: var(--space-md);
+}
+
+/* 提交按钮区 */
+.submit {
+    margin-top: var(--space-lg);
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.remark{
-    margin-top: 20rpx;
-
-}
-
-/* 提交 */
-.submit{
-    margin-top: 20rpx;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.tips {
+    margin-top: var(--space-sm);
+    font-size: 24rpx;
+    color: var(--color-text-3);
+    text-align: center;
 }
