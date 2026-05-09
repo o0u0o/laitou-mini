@@ -1,7 +1,7 @@
 <view class="container">
   <view class="title">投稿须知</view>
 
-  <view class="p">「来头 · 求职前先查一查」是基于公开信息与可核验事实的求职风险线索平台。投稿前请仔细阅读以下规则，您提交即视为同意。</view>
+  <view class="p">「面试准备盒 · PrepBox」是基于公开信息与可核验事实的面试、求职准备平台。投稿前请仔细阅读以下规则，您提交即视为同意。</view>
 
   <view class="h2">一、欢迎提交的内容</view>
   <view class="li">公开的法院判决、仲裁裁决、行政处罚、被执行/失信信息。</view>

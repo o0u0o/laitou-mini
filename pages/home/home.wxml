@@ -20,9 +20,9 @@
 <view class="container">
   <!-- Hero 顶部品牌区（仿"看准"风格：深色渐变背景 + 大标题 + 大圆角搜索框） -->
   <view class="hero">
-    <view class="hero-brand">来头</view>
-    <view class="hero-title">求职前先查一查</view>
-    <view class="hero-sub">基于公开信息与可核验事实，看清这家公司的来头</view>
+    <view class="hero-brand">面试准备盒</view>
+    <view class="hero-title">面试前，准备一下</view>
+    <view class="hero-sub">基于公开信息与可核验事实，提前看清这家公司的背景</view>
 
     <l-search-bar class="hero-search"
                   l-container-class="hero-search-container"
@@ -50,7 +50,7 @@
 
   <!-- 合规提示条 -->
   <view class="disclaimer">
-    来头 · 求职前先查一查：平台内容仅作求职风险参考，不构成对企业的最终定性。发现失实可 <text class="link" bindtap="goAppeal">申诉、反馈</text>。
+    面试准备盒 · PrepBox：平台内容仅作面试、求职参考，不构成对企业的最终定性。发现失实可 <text class="link" bindtap="goAppeal">申诉、反馈</text>。
   </view>
 
   <!-- 分区标题 -->

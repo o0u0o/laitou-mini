@@ -1,7 +1,7 @@
 {
-  "name": "laitou",
+  "name": "prepbox",
   "version": "0.1.0",
-  "description": "来头-只为让求职更顺利一点点",
+  "description": "面试准备盒 / PrepBox — 面试前，准备一下",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
