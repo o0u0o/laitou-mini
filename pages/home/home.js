@@ -1,5 +1,7 @@
 import {Company} from "../../model/company";
 import {Banner} from "../../model/banner";
+import {config} from "../../config/config";
+import {Mock} from "../../utils/mock";
 
 Page({
 
@@ -28,16 +30,30 @@ Page({
    */
   async initAllData(){
     const bannerA = await Banner.getHomeLocationA()
-    console.log(bannerA.banners)
-    this.setData({
-      bannerA
-    })
+    console.log(bannerA && bannerA.banners)
+    this.setData({ bannerA })
+
+    // mock 模式下默认展示一批示例公司数据，便于预览列表样式
+    if (config.useMock) {
+      const hit = Mock.match('/company/list/like');
+      if (hit) this.setData({ companyData: hit.data });
+    }
   },
 
   //结束搜索
   endsearchList(e) {
     let _this = this;
     console.log(e.detail.value)
+
+    // mock 模式直接走本地数据，不发网络请求
+    if (config.useMock) {
+      const hit = Mock.match('/company/list/like');
+      if (hit) {
+        _this.setData({ companyData: hit.data });
+        return;
+      }
+    }
+
     wx.request({
       url: 'https://laitou.aiuiot.com/laitou-java/app/company/list/like',
       data: {

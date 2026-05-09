@@ -117,6 +117,16 @@ Page({
     console.log("======================")
     console.log(_this.data.companyData)
     console.log("======================")
+
+    // 本地 mock 开关：不发网络，直接进入「审核中」
+    try {
+      const { config } = require('../../config/config');
+      if (config && config.useMock) {
+        wx.redirectTo({ url: '/pages/review-status/review-status' });
+        return;
+      }
+    } catch (err) { /* ignore */ }
+
     wx.request({
       method: 'POST',
       //dataType: 'json',

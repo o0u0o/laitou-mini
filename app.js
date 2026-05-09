@@ -7,6 +7,12 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
+    // mock 开关开启时跳过真实登录
+    if (config.useMock) {
+      this.globalData.openID = 'mock-openid-0001';
+      return;
+    }
+
     // 登录
     wx.login({
       success: res => {
