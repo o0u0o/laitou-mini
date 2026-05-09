@@ -1,72 +1,140 @@
 <view class="container">
+
     <!-- 顶部合规提示 -->
     <view class="notice-bar">
-        投稿默认<text class="link" bindtap="goNotice">不公开</text>，需先通过审核。提交即视为同意
-        <text class="link" bindtap="goNotice">《投稿须知》</text>与
-        <text class="link" bindtap="goPrivacy">《隐私政策》</text>。
+        <l-icon name="warn" size="28" color="#E6A23C" />
+        <view class="notice-text">
+            投稿默认<text class="link" bindtap="goNotice">不公开</text>，需先通过审核。提交即视为同意
+            <text class="link" bindtap="goNotice">《投稿须知》</text>与
+            <text class="link" bindtap="goPrivacy">《隐私政策》</text>。
+        </view>
     </view>
 
-    <view class="feedback">
-        <view>
+    <!-- 表单卡片 -->
+    <view class="form-card">
+
+        <!-- 公司名 -->
+        <view class="field">
             <l-input
-                    label-width="270"
-                    clear="{{true}}"
-                    bind:linblur="bindName"
-                    label="公司/机构名字"
-                    placeholder="请输入公司名称" required="{{true}}">
-            </l-input>
-            <l-input
-                    label-width="270"
-                    clear="{{true}}"
-                    label="类型"
-                    bind:linblur="bindType"
-                    placeholder="如：劳动争议/行政处罚/失信被执行 等可核验类别" required="{{true}}">
-            </l-input>
-            <l-input
-                    label-width="270"
-                    bind:linblur="bindProvince"
-                    label="省/直辖市/自治区" placeholder="如：广东省" required="{{true}}">
-            </l-input>
-            <l-input
-                    label-width="270"
-                    bind:linblur="bindCity"
-                    label="城市" placeholder="如：深圳市" require="{{true}}"></l-input>
-            <l-input
-                    label-width="270"
-                    bind:linblur="bindDistrict"
-                    label="区/县" placeholder="如：南山区"></l-input>
-            <l-input
-                    label-width="270"
-                    bind:linblur="bindAddress"
-                    label="详细地址" placeholder="如：某某大厦1987楼8号"></l-input>
-        </view>
-        <view class="remark">
-            <l-textarea indicator="{{true}}"
-                        maxlength="500"
-                        bind:linblur="bindRemark"
-                        placeholder="请客观陈述事实，并附可核验来源（如裁判文书编号、媒体报道链接）。请勿包含他人身份证号、手机号等隐私信息。">
-            </l-textarea>
+                label="公司/机构名称"
+                label-width="220"
+                clear="{{true}}"
+                placeholder="请输入公司全称（与营业执照一致）"
+                required="{{true}}"
+                bind:linchange="bindName"
+                bind:linblur="bindName" />
+            <view wx:if="{{errors.name}}" class="err-tip">{{errors.name}}</view>
         </view>
 
-        <!-- 同意确认 -->
-        <view class="agree" bindtap="toggleAgree">
-            <view class="check {{agreed ? 'checked' : ''}}">{{agreed ? '✓' : ''}}</view>
-            <view>
-                我已阅读并同意
-                <text class="link" catchtap="goNotice">《投稿须知》</text>与
-                <text class="link" catchtap="goPrivacy">《隐私政策》</text>，
-                承诺所提交内容真实、合法，不含他人隐私或不实指控。
+        <!-- 类型（radio 单选） -->
+        <view class="field">
+            <view class="field-label required">类型</view>
+            <l-radio-group bind:linchange="onTypeChange" current="{{form.type}}">
+                <view class="radio-list">
+                    <view class="radio-item" wx:for="{{typeOptions}}" wx:key="value">
+                        <l-radio key="{{item.value}}" color="#0052D9">
+                            <text class="radio-text">{{item.label}}</text>
+                        </l-radio>
+                    </view>
+                </view>
+            </l-radio-group>
+            <view wx:if="{{errors.type}}" class="err-tip">{{errors.type}}</view>
+        </view>
+
+        <!-- 省市区（原生 region picker） -->
+        <view class="field">
+            <view class="field-label required">省 / 市 / 区</view>
+            <picker mode="region" value="{{region}}" bindchange="onRegionChange">
+                <view class="picker-trigger {{regionText ? '' : 'placeholder'}}">
+                    {{regionText || '点击选择所在省市区'}}
+                    <l-icon name="right" size="24" color="#999" />
+                </view>
+            </picker>
+            <view wx:if="{{errors.province}}" class="err-tip">{{errors.province}}</view>
+        </view>
+
+        <!-- 详细地址 -->
+        <view class="field">
+            <l-input
+                label="详细地址"
+                label-width="220"
+                clear="{{true}}"
+                placeholder="如：南山区科技园某大厦8楼（选填）"
+                bind:linchange="bindAddress"
+                bind:linblur="bindAddress" />
+        </view>
+
+        <!-- 信源（必填） -->
+        <view class="field">
+            <view class="field-label required">
+                可核验信源
+                <text class="counter">{{sourceLen}}/200</text>
             </view>
+            <l-textarea
+                value="{{form.source}}"
+                placeholder="请填写可核验来源，如：裁判文书号 (2024)川1703执572号 / 信用中国公示链接 / 主流媒体报道 URL。"
+                maxlength="200"
+                show-confirm-bar="{{false}}"
+                bind:linchange="bindSource"
+                bind:linblur="bindSource" />
+            <view wx:if="{{errors.source}}" class="err-tip">{{errors.source}}</view>
+        </view>
+
+        <!-- 备注（选填） -->
+        <view class="field">
+            <view class="field-label">
+                备注 / 事实陈述
+                <text class="counter">{{remarkLen}}/500</text>
+            </view>
+            <l-textarea
+                value="{{form.remark}}"
+                placeholder="请客观陈述事实（拖欠多少人/多少钱/案件进展等）。请勿包含他人身份证号、手机号等隐私信息。"
+                maxlength="500"
+                show-confirm-bar="{{false}}"
+                bind:linchange="bindRemark"
+                bind:linblur="bindRemark" />
+        </view>
+
+    </view>
+
+    <!-- 同意条款 -->
+    <view class="agree" bindtap="toggleAgree">
+        <view class="check {{agreed ? 'checked' : ''}}">{{agreed ? '✓' : ''}}</view>
+        <view class="agree-text">
+            我已阅读并同意
+            <text class="link" catchtap="goNotice">《投稿须知》</text>与
+            <text class="link" catchtap="goPrivacy">《隐私政策》</text>，
+            承诺所提交内容真实、合法，不含他人隐私或不实指控。
         </view>
     </view>
 
-    <!--  提交  -->
+    <!-- 操作区 -->
     <view class="submit">
-        <l-button type="success" bind:lintap="submitData">提交</l-button>
-        <view class="tips">提交后进入审核池，审核通过后才会公开展示。</view>
+        <l-button type="success" size="large" full="{{true}}" bind:lintap="openPreview">
+            预览并提交
+        </l-button>
+        <view class="tips">点击后将弹出预览，确认无误再正式提交审核。</view>
     </view>
+
+    <!-- 预览弹窗 -->
+    <l-dialog
+        show="{{showPreview}}"
+        title="确认提交内容"
+        confirm-text="确认提交"
+        cancel-text="返回修改"
+        bind:lincancel="closePreview"
+        bind:linconfirm="confirmSubmit">
+        <view slot="content" class="preview">
+            <view class="preview-row"><text class="k">公司：</text>{{form.name}}</view>
+            <view class="preview-row">
+                <text class="k">类型：</text>
+                <l-tag bg-color="#E8F1FF" color="#0052D9" shape="circle" size="small">{{form.type}}</l-tag>
+            </view>
+            <view class="preview-row"><text class="k">地区：</text>{{regionText}}{{form.address ? ' · ' + form.address : ''}}</view>
+            <view class="preview-row"><text class="k">信源：</text><text class="v">{{form.source}}</text></view>
+            <view class="preview-row" wx:if="{{form.remark}}"><text class="k">备注：</text><text class="v">{{form.remark}}</text></view>
+        </view>
+    </l-dialog>
 
     <l-toast />
 </view>
-
-
