@@ -14,84 +14,92 @@
     <view class="form-card">
 
         <!-- 公司名 -->
-        <view class="field">
+        <view class="field field-row">
             <view class="field-label required">公司/机构名称</view>
-            <input class="native-input"
-                   value="{{form.name}}"
-                   placeholder="请输入公司全称（与营业执照一致）"
-                   placeholder-class="native-placeholder"
-                   maxlength="80"
-                   bindinput="bindName" />
-            <view wx:if="{{errors.name}}" class="err-tip">{{errors.name}}</view>
+            <view class="field-control">
+                <input class="native-input"
+                       value="{{form.name}}"
+                       placeholder="公司全称（与营业执照一致）"
+                       placeholder-class="native-placeholder"
+                       maxlength="80"
+                       bindinput="bindName" />
+                <view wx:if="{{errors.name}}" class="err-tip">{{errors.name}}</view>
+            </view>
         </view>
 
         <!-- 类型（radio 单选） -->
-        <view class="field">
+        <view class="field field-block">
             <view class="field-label required">类型</view>
-            <l-radio-group bind:linchange="onTypeChange" current="{{form.type}}">
-                <view class="radio-list">
-                    <view class="radio-item" wx:for="{{typeOptions}}" wx:key="value">
-                        <l-radio key="{{item.value}}" color="#157658">
-                            <text class="radio-text">{{item.label}}</text>
-                        </l-radio>
+            <view class="field-control">
+                <l-radio-group bind:linchange="onTypeChange" current="{{form.type}}">
+                    <view class="radio-list">
+                        <view class="radio-item" wx:for="{{typeOptions}}" wx:key="value">
+                            <l-radio key="{{item.value}}" color="#157658">
+                                <text class="radio-text">{{item.label}}</text>
+                            </l-radio>
+                        </view>
                     </view>
-                </view>
-            </l-radio-group>
-            <view wx:if="{{errors.type}}" class="err-tip">{{errors.type}}</view>
+                </l-radio-group>
+                <view wx:if="{{errors.type}}" class="err-tip">{{errors.type}}</view>
+            </view>
         </view>
 
-        <!-- 省市区（原生 region picker） -->
-        <view class="field">
+        <!-- 省市区 -->
+        <view class="field field-row">
             <view class="field-label required">省 / 市 / 区</view>
-            <picker mode="region" value="{{region}}" bindchange="onRegionChange">
-                <view class="picker-trigger {{regionText ? '' : 'placeholder'}}">
-                    <text class="picker-text">{{regionText || '点击选择所在省市区'}}</text>
-                    <l-icon name="right" size="24" color="#999" />
-                </view>
-            </picker>
-            <view wx:if="{{errors.province}}" class="err-tip">{{errors.province}}</view>
+            <view class="field-control">
+                <picker mode="region" value="{{region}}" bindchange="onRegionChange">
+                    <view class="picker-trigger {{regionText ? '' : 'placeholder'}}">
+                        <text class="picker-text">{{regionText || '点击选择所在省市区'}}</text>
+                        <l-icon name="right" size="24" color="#999" />
+                    </view>
+                </picker>
+                <view wx:if="{{errors.province}}" class="err-tip">{{errors.province}}</view>
+            </view>
         </view>
 
         <!-- 详细地址 -->
-        <view class="field">
+        <view class="field field-row">
             <view class="field-label">详细地址</view>
-            <input class="native-input"
-                   value="{{form.address}}"
-                   placeholder="如：南山区科技园某大厦8楼（选填）"
-                   placeholder-class="native-placeholder"
-                   maxlength="100"
-                   bindinput="bindAddress" />
+            <view class="field-control">
+                <input class="native-input"
+                       value="{{form.address}}"
+                       placeholder="如：南山区科技园某大厦8楼（选填）"
+                       placeholder-class="native-placeholder"
+                       maxlength="100"
+                       bindinput="bindAddress" />
+            </view>
         </view>
 
         <!-- 信源（必填） -->
-        <view class="field">
-            <view class="field-label required">
-                <text>可核验信源</text>
-                <text class="counter">{{sourceLen}}/200</text>
+        <view class="field field-block">
+            <view class="field-label required">可核验信源</view>
+            <view class="field-control">
+                <textarea class="native-textarea"
+                          value="{{form.source}}"
+                          placeholder="裁判文书号 / 信用中国公示链接 / 主流媒体报道 URL"
+                          placeholder-class="native-placeholder"
+                          maxlength="200"
+                          auto-height="{{true}}"
+                          bindinput="bindSource" />
+                <view class="counter-row"><text class="counter">{{sourceLen}}/200</text></view>
+                <view wx:if="{{errors.source}}" class="err-tip">{{errors.source}}</view>
             </view>
-            <textarea class="native-textarea"
-                      value="{{form.source}}"
-                      placeholder="请填写可核验来源，如：裁判文书号 (2024)州1703执572号 / 信用中国公示链接 / 主流媒体报道 URL。"
-                      placeholder-class="native-placeholder"
-                      maxlength="200"
-                      auto-height="{{true}}"
-                      bindinput="bindSource" />
-            <view wx:if="{{errors.source}}" class="err-tip">{{errors.source}}</view>
         </view>
 
         <!-- 备注（选填） -->
-        <view class="field">
-            <view class="field-label">
-                <text>备注 / 事实陈述</text>
-                <text class="counter">{{remarkLen}}/500</text>
+        <view class="field field-block">
+            <view class="field-label">备注</view>
+            <view class="field-control">
+                <textarea class="native-textarea"
+                          value="{{form.remark}}"
+                          placeholder="客观陈述事实（拖欠多少人/多少钱/案件进展等）。请勿包含他人身份证号、手机号等隐私信息。"
+                          placeholder-class="native-placeholder"
+                          maxlength="500"
+                          auto-height="{{true}}"
+                          bindinput="bindRemark" />
+                <view class="counter-row"><text class="counter">{{remarkLen}}/500</text></view>
             </view>
-            <textarea class="native-textarea"
-                      value="{{form.remark}}"
-                      placeholder="请客观陈述事实（拖欠多少人/多少钱/案件进展等）。请勿包含他人身份证号、手机号等隐私信息。"
-                      placeholder-class="native-placeholder"
-                      maxlength="500"
-                      auto-height="{{true}}"
-                      bindinput="bindRemark" />
         </view>
 
     </view>
