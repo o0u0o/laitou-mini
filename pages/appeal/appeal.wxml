@@ -4,13 +4,18 @@
   </view>
 
   <view class="form">
-    <l-input label-width="200"
-             clear="{{true}}"
-             bind:linblur="bindType"
-             label="申诉类型"
-             placeholder="如：企业申诉 / 内容更正 / 删除请求 / 其他"
-             required="{{true}}">
-    </l-input>
+    <picker mode="selector"
+            range="{{typeOptions}}"
+            value="{{typeIndex}}"
+            bindchange="onTypePick">
+      <view class="picker-row">
+        <view class="picker-label">申诉类型<text class="required">*</text></view>
+        <view class="picker-value {{form.type ? '' : 'placeholder'}}">
+          {{form.type || '请选择申诉类型'}}
+        </view>
+        <l-icon name="pull-down" size="28" color="#999999" />
+      </view>
+    </picker>
     <view class="field-gap">
       <l-input label-width="200"
                clear="{{true}}"

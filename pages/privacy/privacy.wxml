@@ -1,34 +1,101 @@
 <view class="container">
   <view class="title">「面试准备盒 · PrepBox」隐私政策</view>
-  <view class="meta">版本 v0.1（示例文本，正式上线前请由法务审阅）</view>
+  <view class="meta">版本 v1.1 · 生效日期 2026-05-10 · 最近更新 2026-05-10</view>
 
-  <view class="p">本政策用于向您说明，当您使用「面试准备盒 · PrepBox」小程序时，我们会如何收集、使用、存储、共享和保护您的个人信息，以及您享有的权利。</view>
+  <!-- 价值观提示 -->
+  <view class="callout">
+    我们郑重承诺：除非获得您的明示同意或法律法规另有规定，绝不收集与服务无关的个人信息，绝不向第三方出售您的个人信息。
+  </view>
 
-  <view class="h2">一、我们收集的信息</view>
-  <view class="li">微信 openid：用于识别您的账号身份，便于关联您的投稿与申诉记录。</view>
-  <view class="li">您主动填写的内容：您在「贡献」页提交的公司/机构名称、地址、类型、事实描述以及上传的证据材料。</view>
-  <view class="li">必要的日志信息：访问时间、操作类型、设备型号等，用于服务稳定与安全风控。</view>
+  <view class="p">
+    本《隐私政策》（以下简称"本政策"）是「面试准备盒 · PrepBox」小程序（以下简称"本服务"或"我们"）与您之间关于个人信息处理的法律协议。我们会按照《中华人民共和国个人信息保护法》《中华人民共和国网络安全法》《中华人民共和国数据安全法》以及《微信小程序用户隐私保护指引》的要求，以最小必要、合法、正当、透明的原则处理您的个人信息。
+  </view>
+  <view class="p">
+    请您在使用本服务前，<text class="strong">仔细阅读并充分理解本政策</text>。当您勾选"同意《隐私政策》"或继续使用本服务，即视为您已知晓并同意本政策约定的全部内容。如您不同意本政策的任何条款，请停止使用本服务。
+  </view>
 
-  <view class="h2">二、我们如何使用信息</view>
-  <view class="li">用于展示与求职风险相关的可核验公开信息。</view>
-  <view class="li">用于内容审核、申诉受理、纠错与下架处理。</view>
-  <view class="li">用于产品改进、安全防护与依法配合监管要求。</view>
+  <!-- ==================== 一、定义 ==================== -->
+  <view class="h2">一、定义</view>
+  <view class="li"><text class="strong">个人信息</text>：以电子或者其他方式记录的、能够单独或者与其他信息结合识别特定自然人身份的各种信息。</view>
+  <view class="li"><text class="strong">敏感个人信息</text>：一旦泄露或者非法使用，容易导致自然人的人格尊严受到侵害或者人身、财产安全受到危害的个人信息（如身份证件、生物识别、行踪轨迹、未成年人信息等）。</view>
+  <view class="li"><text class="strong">去标识化</text>：对个人信息进行处理，使其在不借助额外信息的情况下无法识别特定自然人。</view>
 
-  <view class="h2">三、信息的共享与披露</view>
-  <view class="p">我们不会将您的个人信息出售给任何第三方。仅在以下情形可能共享：依法律法规、监管要求或司法机关合法请求；为提供必要技术服务（如云存储）所必须，且要求其遵守同等保护义务。</view>
+  <!-- ==================== 二、我们收集的个人信息 ==================== -->
+  <view class="h2">二、我们收集的个人信息及目的</view>
+  <view class="p">为实现服务功能，我们仅在以下场景中收集对应的最小必要个人信息：</view>
 
-  <view class="h2">四、信息存储与安全</view>
-  <view class="li">我们会采用合理的技术与管理措施保护您的信息，但请理解互联网环境无法保证绝对安全。</view>
-  <view class="li">证据材料仅对授权审核人员可见，不会在前台公开展示原件。</view>
-  <view class="li">非必要不长期保存。详细保存期限以最终上线版本说明为准。</view>
+  <view class="h3">2.1 账号识别（必要）</view>
+  <view class="li"><text class="strong">微信 openid</text>：通过 <text class="code">wx.login</text> 获取的临时 code 由我们后端向微信服务器换取。仅用于识别账号、关联您的投稿与申诉记录、防止重复提交，不会用于身份画像或商业推送。</view>
 
-  <view class="h2">五、您的权利</view>
-  <view class="li">您可随时联系我们查询、更正、删除您的投稿与个人信息。</view>
-  <view class="li">您可撤回此前给予的同意，但可能影响相关功能的使用。</view>
+  <view class="h3">2.2 投稿与申诉（按需）</view>
+  <view class="li"><text class="strong">您主动填写的内容</text>：在「贡献」「申诉/反馈」页填写的公司/机构名称、所在地、类型、事实描述、信息来源链接、备注说明。</view>
+  <view class="li"><text class="strong">联系方式（选填）</text>：邮箱或手机号，仅用于复核进度回复，不会向他人公开。</view>
+  <view class="li"><text class="strong">关于"被提及第三方"的信息</text>：如您在投稿中涉及他人姓名（如法定代表人）等，请仅填写已通过<text class="strong">官方公开渠道（人民法院、人社部门、监管机关、主流媒体）公开披露</text>的内容，不得提交未公开的个人隐私或敏感信息。</view>
 
-  <view class="h2">六、未成年人</view>
-  <view class="p">本服务不面向未满 14 周岁的未成年人。如发现相关情形，我们将及时删除相关数据。</view>
+  <view class="h3">2.3 服务运行与安全（必要）</view>
+  <view class="li"><text class="strong">设备与日志</text>：访问时间、操作类型、错误堆栈、网络状态、机型与系统版本。仅用于服务稳定性监控、故障排查与防止恶意刷单、爬取等安全风控。</view>
 
-  <view class="h2">七、联系我们</view>
-  <view class="p">如对本政策有任何疑问、意见或投诉，请通过小程序内「申诉/反馈」入口联系我们。</view>
+  <view class="h3">2.4 我们目前<text class="strong">不</text>收集的信息</view>
+  <view class="li">不收集您的真实姓名、身份证件号、人脸/指纹等生物识别信息。</view>
+  <view class="li">不收集您的精确地理位置、通讯录、相册、相机、麦克风等敏感权限。</view>
+  <view class="li">不收集您的微信昵称、头像（如未来需要，将单独申请同意）。</view>
+  <view class="li">不收集您在其他小程序或 App 中的行为数据。</view>
+
+  <!-- ==================== 三、我们如何使用 Cookie 和本地存储 ==================== -->
+  <view class="h2">三、我们如何使用本地存储</view>
+  <view class="p">微信小程序不使用 Cookie。我们仅通过 <text class="code">wx.setStorage</text> 在您的设备本地保存少量必要数据：</view>
+  <view class="li">启动日志时间戳（用于服务可用性统计，存储于本地，不上传）。</view>
+  <view class="li">您的隐私政策同意状态（避免重复弹出授权窗口）。</view>
+  <view class="li">您可以在微信"设置 → 通用 → 存储空间"中清除本小程序的本地缓存。</view>
+
+  <!-- ==================== 四、共享、转让、公开披露 ==================== -->
+  <view class="h2">四、共享、转让与公开披露</view>
+  <view class="p">我们承诺不会向任何第三方出售您的个人信息。仅在下列情形可能共享：</view>
+  <view class="li"><text class="strong">法定情形</text>：依据法律法规、监管要求或司法机关合法请求向有权机关提供。</view>
+  <view class="li"><text class="strong">必要技术服务</text>：为提供云存储、消息推送等基础能力所必需，且我们会与服务提供方签订严格的数据处理协议，要求其遵守同等保护义务。</view>
+  <view class="li"><text class="strong">业务变更</text>：如发生合并、收购或破产清算等情形导致信息转让，我们将要求新的持有者继续受本政策约束。</view>
+  <view class="li"><text class="strong">您主动公开</text>：您在投稿被审核通过后，公司/机构名称、事实描述、信息来源等内容将向所有用户公开展示。联系方式与 openid 不会公开。</view>
+
+  <!-- ==================== 五、第三方 SDK ==================== -->
+  <view class="h2">五、接入的第三方 SDK 与服务</view>
+  <view class="li"><text class="strong">微信开放平台</text>（运营方：腾讯公司）：用于登录鉴权（wx.login）。处理范围：临时登录凭证 code。<text class="strong">隐私政策</text>：见微信《隐私保护指引》。</view>
+  <view class="li">本小程序当前未集成任何统计、广告、推送类第三方 SDK。如未来引入，我们将以单独提示并更新本政策的方式告知您。</view>
+
+  <!-- ==================== 六、存储与安全 ==================== -->
+  <view class="h2">六、信息存储期限与安全</view>
+  <view class="li"><text class="strong">存储地点</text>：所有用户数据存储于中华人民共和国境内的服务器，不进行跨境传输。</view>
+  <view class="li"><text class="strong">存储期限</text>：openid 与投稿记录在您的账号有效期内保留；联系方式在申诉处理完结后 90 日内删除；运行日志保留不超过 6 个月。法律法规另有规定的从其规定。</view>
+  <view class="li"><text class="strong">安全措施</text>：传输采用 HTTPS 加密；存储采用访问权限隔离；敏感字段脱敏；定期开展安全审计与漏洞扫描。</view>
+  <view class="li"><text class="strong">事件响应</text>：如发生个人信息泄露事件，我们将立即启动应急预案，并依法向您和监管部门告知事件情况、可能影响及补救措施。</view>
+
+  <!-- ==================== 七、您的权利 ==================== -->
+  <view class="h2">七、您依法享有的权利</view>
+  <view class="p">根据《个人信息保护法》第四章规定，您对自己的个人信息享有以下权利：</view>
+  <view class="li"><text class="strong">知情权与决定权</text>：知悉本政策内容，并决定是否同意我们处理您的个人信息。</view>
+  <view class="li"><text class="strong">查阅与复制权</text>：您可通过「申诉/反馈」入口申请查阅或复制您提供给我们的个人信息。</view>
+  <view class="li"><text class="strong">更正与补充权</text>：发现信息有误，可申请更正或补充。</view>
+  <view class="li"><text class="strong">删除权</text>：在下列情形您可申请删除：处理目的已实现 / 我们停止提供服务 / 您撤回同意 / 我们违反法律或约定。</view>
+  <view class="li"><text class="strong">撤回同意权</text>：您随时可以撤回此前作出的同意。撤回不影响撤回前已经进行的合法处理。</view>
+  <view class="li"><text class="strong">注销账号</text>：可联系我们注销账号，注销后我们将删除您的个人信息（法律要求保留的除外）。</view>
+  <view class="li"><text class="strong">解释说明权</text>：您有权要求我们对本政策及个人信息处理规则作出解释说明。</view>
+  <view class="li"><text class="strong">投诉举报权</text>：如认为我们的处理活动侵害了您的合法权益，您可向网信、工信、公安等监管部门投诉举报。</view>
+  <view class="p">我们将在收到您的请求后 <text class="strong">15 个工作日</text> 内响应。</view>
+
+  <!-- ==================== 八、未成年人 ==================== -->
+  <view class="h2">八、未成年人保护</view>
+  <view class="p">本服务不面向未满 14 周岁的未成年人。我们不会有意收集未成年人个人信息。如您是未成年人的监护人，发现我们在未事先获得可证实的监护人同意下收集了未成年人个人信息，请通过本政策末尾联系方式告知，我们将依法在第一时间删除。</view>
+
+  <!-- ==================== 九、变更 ==================== -->
+  <view class="h2">九、本政策的变更</view>
+  <view class="p">为给您提供更好的服务，本政策可能会适时修订。变更后我们将通过小程序内推送、弹窗或更新页面的方式通知您。如属于重大变更（如收集目的、共享范围、用户权利行使方式发生显著变化），我们将以更显著的方式重新征得您的同意。</view>
+
+  <!-- ==================== 十、联系我们 ==================== -->
+  <view class="h2">十、如何联系我们</view>
+  <view class="li"><text class="strong">个人信息保护负责人</text>：本小程序运营者。</view>
+  <view class="li"><text class="strong">投诉与建议</text>：通过小程序「<text class="link" bindtap="goAppeal">申诉 / 反馈</text>」入口提交，<text class="strong">我们承诺 15 个工作日内书面回复</text>。</view>
+  <view class="li">如对回复不满意，您还可以向网信办、工信部 12321 举报受理中心或当地人民法院寻求救济。</view>
+
+  <view class="footer-meta">
+    本政策最终解释权归本服务运营者所有。本政策的签署、生效、履行、解释及争议解决适用中华人民共和国法律。
+  </view>
 </view>
