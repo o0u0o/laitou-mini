@@ -64,7 +64,9 @@ Page({
 
   // 类型 radio
   onTypeChange(e) {
-    this._setField('type', e.detail.value);
+    // lin-ui radio-group 触发 linchange 时 detail 是 { key, ... }
+    const v = (e.detail && (e.detail.key || e.detail.currentKey)) || '';
+    this._setField('type', v);
   },
 
   // 省市区 picker
