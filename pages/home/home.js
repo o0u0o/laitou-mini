@@ -37,6 +37,12 @@ Page({
   goPrivacy(){ wx.navigateTo({ url: '/pages/privacy/privacy' }); },
   goAppeal(){ wx.navigateTo({ url: '/pages/appeal/appeal' }); },
 
+  // 跳转公司详情
+  goDetail(e){
+    const id = e.currentTarget.dataset.id;
+    wx.navigateTo({ url: '/pages/detail/detail?id=' + id });
+  },
+
   // 热门标签点击：等价触发一次搜索
   onTagTap(e){
     const kw = e.currentTarget.dataset.kw;
