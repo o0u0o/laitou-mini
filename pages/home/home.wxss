@@ -88,11 +88,6 @@
     background-color: #F2FBF7;
 }
 
-/* ============= 胶囊栏（替代 hero-tags） ============= */
-.hero-capsules {
-    margin-top: 28rpx;
-}
-
 /* ============= 合规提示条（低饱和主色提示） ============= */
 .disclaimer {
     margin: var(--space-md);

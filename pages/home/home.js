@@ -9,16 +9,7 @@ Page({
     companyData: [],
     // 隐私授权弹窗
     showPrivacy: false,
-    privacyContractName: '《隐私政策》',
-    // 胶囊栏分类
-    currentCategory: 'all',
-    categoryCapsules: [
-      { key: 'all',      name: '全部',       icon: 'history' },
-      { key: '劳动争议',  name: '劳动争议',   icon: 'warning' },
-      { key: '行政处罚',  name: '行政处罚',   icon: 'notification' },
-      { key: '失信被执行', name: '失信被执行', icon: 'error' },
-      { key: '疑似传销',  name: '疑似传销',   icon: 'eye' }
-    ]
+    privacyContractName: '《隐私政策》'
   },
 
   /**
@@ -108,14 +99,5 @@ Page({
   onTagTap(e){
     const kw = e.currentTarget.dataset.kw;
     this.endsearchList({ detail: { value: kw } });
-  },
-
-  // 胶囊栏分类点击
-  async onCapsuleTap(e) {
-    const { key } = e.detail;
-    this.setData({ currentCategory: key });
-    const keyword = key === 'all' ? '' : key;
-    const companyData = await Company.searchByKeyword(keyword);
-    this.setData({ companyData });
   }
 })

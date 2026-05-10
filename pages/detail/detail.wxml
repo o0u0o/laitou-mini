@@ -170,8 +170,8 @@
           <text class="rev-score-unit">/ 5.0</text>
         </view>
         <view class="rev-score-side">
-          <l-rate score="{{review.avgInt}}" disabled="{{true}}" size="32"
-                  active-image="{{starActive}}" in-active-image="{{starInactive}}" />
+          <l-rate score="{{review.avgInt}}" disabled="{{true}}" size="24"
+                  active-color="#FFDD55" inActive-color="#FFF5CE" />
           <view class="rev-score-count">{{review.total}} 人已点评</view>
         </view>
       </view>
@@ -204,8 +204,8 @@
                 title="{{r.author}}"
                 describe="{{r.position || '—'}}">
           <!-- 右上角：星级 -->
-          <l-rate slot="more" score="{{r.score}}" disabled="{{true}}" size="24"
-                  active-image="{{starActive}}" in-active-image="{{starInactive}}" />
+          <l-rate slot="more" score="{{r.score}}" disabled="{{true}}" size="18"
+                  active-color="#FFDD55" inActive-color="#FFF5CE" />
           <!-- 主体：内容 + 标签 + 元信息 -->
           <view class="rev-card-body">
             <view class="rev-item-content">{{r.content}}</view>
