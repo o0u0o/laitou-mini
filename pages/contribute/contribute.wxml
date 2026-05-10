@@ -123,19 +123,22 @@
         <view class="tips">点击后将弹出预览，确认无误再正式提交审核。</view>
     </view>
 
-    <!-- 预览弹窗 -->
+    <!-- 预览弹窗：l-mask 提供颜色加深与模糊的遇罩，l-dialog 本身背景透明叠在上面 -->
+    <l-mask show="{{showPreview}}" opacity="0.55" z-index="500" l-mask-class="preview-mask" />
     <l-dialog
         show="{{showPreview}}"
         title="确认提交内容"
         confirm-text="确认提交"
         cancel-text="返回修改"
+        z-index="600"
+        l-bg-class="preview-dialog-bg"
         bind:lincancel="closePreview"
         bind:linconfirm="confirmSubmit">
         <view slot="content" class="preview">
             <view class="preview-row"><text class="k">公司：</text>{{form.name}}</view>
             <view class="preview-row">
                 <text class="k">类型：</text>
-                <l-tag bg-color="#E8F3EF" font-color="#157658" shape="circle" size="small">{{form.type}}</l-tag>
+                <l-tag bg-color="#E8F3EF" font-color="#157658" shape="circle" size="mini">{{form.type}}</l-tag>
             </view>
             <view class="preview-row"><text class="k">地区：</text>{{regionText}}{{form.address ? ' · ' + form.address : ''}}</view>
             <view class="preview-row"><text class="k">信源：</text><text class="v">{{form.source}}</text></view>

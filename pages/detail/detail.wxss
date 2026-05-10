@@ -314,18 +314,6 @@
 .rev-score-side {
     flex: 1;
 }
-.rev-stars {
-    font-size: 36rpx;
-    color: #FFB400;
-    letter-spacing: 4rpx;
-    line-height: 1;
-}
-.rev-stars-sm {
-    font-size: 26rpx;
-    color: #FFB400;
-    letter-spacing: 2rpx;
-    flex-shrink: 0;
-}
 .rev-score-count {
     margin-top: 8rpx;
     font-size: 24rpx;
@@ -387,6 +375,26 @@
 }
 .rev-item:last-child {
     border-bottom: none;
+}
+
+/* l-card 版点评卡片 */
+.rev-card {
+    margin-bottom: var(--space-md);
+    background-color: #FFFFFF;
+    border-radius: 16rpx;
+    box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+    padding: var(--space-md);
+}
+.rev-card:last-child {
+    margin-bottom: 0;
+}
+.rev-card-body {
+    margin-top: var(--space-sm);
+    padding-left: 88rpx; /* 与头像左对齐让出空间 */
+}
+.rev-recommend-mark {
+    color: #157658;
+    font-weight: 500;
 }
 .rev-item-head {
     display: flex;

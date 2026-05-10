@@ -1,6 +1,4 @@
 <wxs module="tagColor">
-  var STAR_FULL  = String.fromCharCode(9733);
-  var STAR_EMPTY = String.fromCharCode(9734);
   module.exports = {
     status: function (s) {
       if (!s) return { bg: '#F0F2F5', font: '#999999' };
@@ -9,18 +7,7 @@
       return { bg: '#F0F2F5', font: '#999999' };
     },
     scale: function () { return { bg: '#ECF0FA', font: '#3963BC' }; },
-    risk:  function () { return { bg: '#FDECEC', font: '#D94F4F' }; },
-    stars: function (n) {
-      var v = Number(n);
-      if (isNaN(v)) v = 0;
-      if (v < 0) v = 0;
-      if (v > 5) v = 5;
-      var s = '';
-      for (var i = 0; i < 5; i++) {
-        s += i < v ? STAR_FULL : STAR_EMPTY;
-      }
-      return s;
-    }
+    risk:  function () { return { bg: '#FDECEC', font: '#D94F4F' }; }
   }
 </wxs>
 
@@ -41,25 +28,25 @@
 
     <view class="d-tags">
       <l-tag wx:if="{{company.status}}"
-             shape="circle" size="small"
+             shape="circle" size="mini"
              bg-color="{{tagColor.status(company.status).bg}}"
              font-color="{{tagColor.status(company.status).font}}">{{company.status}}</l-tag>
       <l-tag wx:for="{{company.scaleTags}}" wx:for-item="t" wx:key="*this"
-             shape="circle" size="small"
+             shape="circle" size="mini"
              bg-color="{{tagColor.scale().bg}}"
              font-color="{{tagColor.scale().font}}">{{t}}</l-tag>
       <l-tag wx:for="{{company.riskTags}}" wx:for-item="r" wx:key="label"
-             shape="circle" size="small"
+             shape="circle" size="mini"
              bg-color="{{tagColor.risk().bg}}"
              font-color="{{tagColor.risk().font}}">{{r.label}}</l-tag>
     </view>
   </view>
 
   <!-- ====== Tab 切换 ====== -->
-  <l-segment current="{{activeTab}}" bind:linchange="onTabChange">
-    <l-segment-item key="0" label="基本信息" />
-    <l-segment-item key="1" label="薪资" />
-    <l-segment-item key="2" label="点评" />
+  <l-segment active-key="{{activeKey}}" bind:linchange="onTabChange">
+    <l-segment-item key="0" tab="基本信息" />
+    <l-segment-item key="1" tab="薪资" />
+    <l-segment-item key="2" tab="点评" />
   </l-segment>
 
   <!-- ============ 基本信息 ============ -->
@@ -98,7 +85,7 @@
       <view class="sub-title">风险提示</view>
       <view class="risk-card" wx:for="{{company.riskTags}}" wx:for-item="r" wx:key="label">
         <view class="risk-head">
-          <l-tag shape="circle" size="small"
+          <l-tag shape="circle" size="mini"
                  bg-color="{{tagColor.risk().bg}}"
                  font-color="{{tagColor.risk().font}}">{{r.label}}</l-tag>
           <text class="risk-date" wx:if="{{r.date}}">{{r.date}}</text>
@@ -183,7 +170,8 @@
           <text class="rev-score-unit">/ 5.0</text>
         </view>
         <view class="rev-score-side">
-          <text class="rev-stars">{{tagColor.stars(review.avgInt)}}</text>
+          <l-rate score="{{review.avgInt}}" disabled="{{true}}" size="24"
+                  active-color="#FFDD55" inActive-color="#FFF5CE" />
           <view class="rev-score-count">{{review.total}} 人已点评</view>
         </view>
       </view>
@@ -209,26 +197,32 @@
       <!-- 点评列表 -->
       <view class="sub-section">
         <view class="sub-title">最新点评</view>
-        <view class="rev-item" wx:for="{{review.list}}" wx:for-item="r" wx:key="id">
-          <view class="rev-item-head">
-            <view class="rev-item-user">
-              <text class="rev-item-name">{{r.author}}</text>
-              <text class="rev-item-tag" wx:if="{{r.position}}">{{r.position}}</text>
+        <l-card class="rev-card"
+                wx:for="{{review.list}}" wx:for-item="r" wx:key="id"
+                type="avatar"
+                image="{{r.avatar || defaultAvatar}}"
+                title="{{r.author}}"
+                describe="{{r.position || '—'}}">
+          <!-- 右上角：星级 -->
+          <l-rate slot="more" score="{{r.score}}" disabled="{{true}}" size="18"
+                  active-color="#FFDD55" inActive-color="#FFF5CE" />
+          <!-- 主体：内容 + 标签 + 元信息 -->
+          <view class="rev-card-body">
+            <view class="rev-item-content">{{r.content}}</view>
+            <view class="rev-item-tags" wx:if="{{r.tags && r.tags.length}}">
+              <l-tag wx:for="{{r.tags}}" wx:for-item="t" wx:key="*this"
+                     shape="circle" size="mini"
+                     bg-color="#F0F2F5" font-color="#666666">{{t}}</l-tag>
             </view>
-            <text class="rev-stars rev-stars-sm">{{tagColor.stars(r.score)}}</text>
+            <view class="rev-item-meta">
+              <text>{{r.workYear}}</text>
+              <text class="sal-dot">·</text>
+              <text>{{r.date}}</text>
+              <text class="sal-dot" wx:if="{{r.recommend}}">·</text>
+              <text class="rev-recommend-mark" wx:if="{{r.recommend}}">推荐入职</text>
+            </view>
           </view>
-          <view class="rev-item-content">{{r.content}}</view>
-          <view class="rev-item-tags" wx:if="{{r.tags && r.tags.length}}">
-            <l-tag wx:for="{{r.tags}}" wx:for-item="t" wx:key="*this"
-                   shape="circle" size="small"
-                   bg-color="#F0F2F5" font-color="#666666">{{t}}</l-tag>
-          </view>
-          <view class="rev-item-meta">
-            <text>{{r.workYear}}</text>
-            <text class="sal-dot">·</text>
-            <text>{{r.date}}</text>
-          </view>
-        </view>
+        </l-card>
       </view>
     </block>
     <view class="d-empty" wx:else>

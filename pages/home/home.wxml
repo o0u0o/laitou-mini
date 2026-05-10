@@ -48,6 +48,7 @@
                   bind:linconfirm="endsearchList">
     </l-search-bar>
 
+    <!-- 热门分类标签 -->
     <view class="hero-tags">
       <view class="hero-tag" data-kw="劳动争议" bindtap="onTagTap">劳动争议</view>
       <view class="hero-tag" data-kw="行政处罚" bindtap="onTagTap">行政处罚</view>
