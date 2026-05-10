@@ -4,9 +4,15 @@ import { Company } from "../../model/company";
 Page({
   data: {
     company: null,
-    activeTab: 0,  // 0=基本信息  1=薪资  2=点评
+    activeTab: 0,    // 0=基本信息  1=薪资  2=点评
+    activeKey: '0', // l-segment 需要字符串 key
     salary: { total: 0 },
-    review: { total: 0 }
+    review: { total: 0 },
+    // 默认匿名头像（点评卡片用）
+    defaultAvatar: 'https://img.icons8.com/fluency/96/user-male-circle.png',
+    // l-rate 的五角星图标（lin-ui 自带图标为爱心）
+    starActive: 'https://img.icons8.com/fluency/48/star.png',
+    starInactive: 'https://img.icons8.com/material-outlined/48/cccccc/star--v1.png'
   },
 
   async onLoad(options) {
@@ -37,7 +43,11 @@ Page({
               : d.activeKey !== undefined    ? d.activeKey
               : d.index;
     const n = Number(idx);
-    this.setData({ activeTab: isNaN(n) ? 0 : n });
+    const safeN = isNaN(n) ? 0 : n;
+    this.setData({
+      activeTab: safeN,
+      activeKey: String(safeN)
+    });
   },
 
   // 复制信用代码

@@ -48,12 +48,17 @@
                   bind:linconfirm="endsearchList">
     </l-search-bar>
 
-    <view class="hero-tags">
-      <view class="hero-tag" data-kw="劳动争议" bindtap="onTagTap">劳动争议</view>
-      <view class="hero-tag" data-kw="行政处罚" bindtap="onTagTap">行政处罚</view>
-      <view class="hero-tag" data-kw="失信被执行" bindtap="onTagTap">失信被执行</view>
-      <view class="hero-tag" data-kw="疑似传销" bindtap="onTagTap">疑似传销</view>
-    </view>
+    <!-- 热门分类胶囊栏 -->
+    <l-capsule-bar class="hero-capsules"
+                   capsules="{{categoryCapsules}}"
+                   current="{{currentCategory}}"
+                   active-color="#FFFFFF"
+                   active-bg-color="#157658"
+                   inactive-color="#FFFFFF"
+                   inactive-bg-color="rgba(255,255,255,0.18)"
+                   radius="32"
+                   gap="16"
+                   bind:lincapsulebartap="onCapsuleTap" />
   </view>
 
   <!-- 合规提示条 -->

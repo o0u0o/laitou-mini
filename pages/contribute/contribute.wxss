@@ -210,3 +210,13 @@ page {
 .preview-row .v {
     color: var(--color-text-2);
 }
+
+/* l-mask 自定义遮罩：加入毛玻璃模糊，提升弹窗聚焦感 */
+.preview-mask {
+    backdrop-filter: blur(6rpx);
+    -webkit-backdrop-filter: blur(6rpx);
+}
+/* 让 l-dialog 自身背景层透明，避免与 l-mask 叠成两层灰 */
+.preview-dialog-bg {
+    background-color: transparent !important;
+}
