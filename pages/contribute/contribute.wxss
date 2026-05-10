@@ -43,19 +43,20 @@ page {
     box-sizing: border-box;
     padding: var(--space-md) 0;
     border-bottom: 1rpx solid var(--color-border);
+    display: block;
 }
 .field:first-child { padding-top: 0; }
 .field:last-child { border-bottom: none; padding-bottom: 0; }
 
 .field-label {
+    display: block;
+    width: 100%;
     font-size: 28rpx;
     color: var(--color-text);
     font-weight: 500;
-    margin-bottom: var(--space-sm);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    line-height: 1.4;
+    line-height: 1.5;
+    margin-bottom: 12rpx;
+    text-align: left;
 }
 .field-label.required::before {
     content: '*';
@@ -63,20 +64,30 @@ page {
     margin-right: 6rpx;
 }
 
+/* 控件容器（label 下方） */
+.field-control {
+    width: 100%;
+}
+
+/* 字符计数（放在控件下面右侧） */
+.counter-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6rpx;
+}
 .counter {
     font-size: 22rpx;
     color: var(--color-text-3);
-    font-weight: normal;
 }
 
-/* 原生 input / textarea：与 picker 视觉对齐 */
+/* 原生 input / textarea */
 .native-input,
 .native-textarea {
     width: 100%;
     box-sizing: border-box;
     background-color: var(--color-bg-soft);
     border-radius: 8rpx;
-    padding: 20rpx 24rpx;
+    padding: 16rpx 24rpx;
     font-size: 28rpx;
     color: var(--color-text);
     line-height: 1.5;
@@ -88,6 +99,14 @@ page {
 .native-placeholder {
     color: var(--color-text-3);
     font-size: 28rpx;
+}
+
+/* 错误提示放在控件下方 */
+.err-tip {
+    color: var(--color-danger);
+    font-size: 22rpx;
+    margin-top: 8rpx;
+    line-height: 1.4;
 }
 
 /* ================= radio 类型 ================= */
@@ -126,14 +145,6 @@ page {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-}
-
-/* ================= 错误提示 ================= */
-.err-tip {
-    color: var(--color-danger);
-    font-size: 22rpx;
-    margin-top: 8rpx;
-    line-height: 1.4;
 }
 
 /* ================= 同意区 ================= */
