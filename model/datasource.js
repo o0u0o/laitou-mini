@@ -15,6 +15,8 @@ import { Http } from '../utils/http';
 // ---- 本地数据（以 .js 模块形式导出，兼容小程序构建器） ----
 const localCompanies  = require('../data/companies.js');
 const localCategories = require('../data/categories.js');
+const localSalaries   = require('../data/salaries.js');
+const localReviews    = require('../data/reviews.js');
 
 // ---------------- 字段补全 ----------------
 // 旧数据只有 type/source/remark，新版页面需要 status/scaleTags/riskTags/法人/信用代码 等。
@@ -116,7 +118,13 @@ class DataSource {
     if (config.useLocalData) {
       const cid = Number(id);
       const found = localCompanies.companys.find(c => c.id === cid);
-      return found ? normalize(found) : null;
+      if (!found) return null;
+      // 详情页需要薪资 / 点评数据，注入本地模拟数据
+      const detail = Object.assign({}, found, {
+        salaries: found.salaries || localSalaries.getByCompanyId(cid),
+        reviews:  found.reviews  || localReviews.getByCompanyId(cid)
+      });
+      return normalize(detail);
     }
     return await Http.request({
       url: `/app/company/${id}`
