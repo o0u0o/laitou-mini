@@ -1,1 +1,149 @@
-/* pages/company-detail/detail.wxss */
+/* pages/detail/detail.wxss */
+.d-container {
+    padding-bottom: 120rpx;
+}
+
+/* ===== Header ===== */
+.d-header {
+    background-color: #FFFFFF;
+    padding: var(--space-lg) var(--space-md);
+    border-bottom: 1rpx solid var(--color-border);
+}
+.d-header-top {
+    display: flex;
+    align-items: flex-start;
+}
+.d-logo {
+    width: 96rpx;
+    height: 96rpx;
+    border-radius: 16rpx;
+    background-color: var(--color-bg-soft);
+    flex-shrink: 0;
+}
+.d-header-main {
+    flex: 1;
+    margin-left: var(--space-md);
+    min-width: 0;
+}
+.d-name {
+    font-size: 34rpx;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.4;
+}
+.d-code {
+    margin-top: var(--space-xs);
+    font-size: 24rpx;
+    color: var(--color-text-3);
+    display: flex;
+    align-items: center;
+    gap: 8rpx;
+}
+.d-copy-btn {
+    color: var(--color-primary);
+    border: 1rpx solid var(--color-primary-light);
+    background-color: var(--color-primary-light);
+    border-radius: 8rpx;
+    padding: 2rpx 12rpx;
+    font-size: 22rpx;
+}
+
+.d-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12rpx;
+    margin-top: var(--space-md);
+}
+
+/* ===== Panel 通用 ===== */
+.d-panel {
+    background-color: #FFFFFF;
+    margin-top: var(--space-sm);
+    padding: var(--space-md);
+}
+
+.info-row {
+    display: flex;
+    padding: var(--space-sm) 0;
+    border-bottom: 1rpx solid var(--color-border);
+    font-size: 26rpx;
+    line-height: 1.6;
+}
+.info-row:last-child {
+    border-bottom: none;
+}
+.info-label {
+    width: 160rpx;
+    color: var(--color-text-3);
+    flex-shrink: 0;
+}
+.info-value {
+    flex: 1;
+    color: var(--color-text);
+    word-break: break-all;
+}
+
+/* ===== 风险卡片 ===== */
+.risk-card {
+    padding: var(--space-sm) 0;
+    border-bottom: 1rpx solid var(--color-border);
+}
+.risk-card:last-child {
+    border-bottom: none;
+}
+.risk-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.risk-date {
+    font-size: 24rpx;
+    color: var(--color-text-3);
+}
+.risk-source {
+    margin-top: var(--space-xs);
+    font-size: 24rpx;
+    color: var(--color-text-2);
+    line-height: 1.6;
+}
+
+.sub-section {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1rpx dashed var(--color-border);
+}
+.sub-title {
+    font-size: 28rpx;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--space-sm);
+    padding-left: 16rpx;
+    border-left: 6rpx solid var(--color-primary);
+}
+
+.d-empty {
+    text-align: center;
+    padding: var(--space-md) 0;
+    font-size: 24rpx;
+    color: var(--color-text-3);
+}
+
+/* ===== Footer ===== */
+.d-footer {
+    margin: var(--space-lg) var(--space-md);
+    padding: var(--space-md);
+    background-color: var(--color-primary-light);
+    border-radius: 16rpx;
+    text-align: center;
+}
+.d-footer-tip {
+    font-size: 24rpx;
+    color: var(--color-primary);
+    margin-bottom: var(--space-sm);
+}
+
+.d-loading {
+    text-align: center;
+    padding: 200rpx 0;
+    color: var(--color-text-3);
+}

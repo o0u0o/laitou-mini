@@ -1,24 +1,33 @@
 <wxs module="tagColor">
   /**
-   * 根据公司/机构类型返回标签的语义化配色
-   *  - 诈骗 / 传销 → 红色（danger）
-   *  - 培训 / 疑似 → 橙色（warning）
-   *  - 其它       → 主色绿（primary）
+   * 标签按"维度"返回语义化配色：
+   *   status   经营状态（存续=绿，注销/吊销=灰）
+   *   scale    规模/性质（蓝）
+   *   risk     风险（红）—— 兼容旧 type 字符串
    */
-  module.exports = function (type) {
-    if (!type) return { bg: '#F0F2F5', font: '#666666' };
-    if (type.indexOf('诈骗') > -1 || type.indexOf('传销') > -1) {
+  module.exports = {
+    status: function (s) {
+      if (!s) return { bg: '#F0F2F5', font: '#999999' };
+      if (s === '存续' || s === '在业') return { bg: '#E8F3EF', font: '#157658' };
+      return { bg: '#F0F2F5', font: '#999999' }; // 注销 / 吊销
+    },
+    scale: function () {
+      return { bg: '#ECF0FA', font: '#3963BC' };
+    },
+    risk: function () {
       return { bg: '#FDECEC', font: '#D94F4F' };
+    },
+    // 公司名超长省略（保留前 N 个字符 + …）
+    ellipsis: function (s, n) {
+      if (!s) return '';
+      n = n || 14;
+      return s.length > n ? s.substr(0, n) + '...' : s;
     }
-    if (type.indexOf('培训') > -1 || type.indexOf('疑似') > -1) {
-      return { bg: '#FEF4E5', font: '#E8A33D' };
-    }
-    return { bg: '#E8F3EF', font: '#157658' };
   }
 </wxs>
 
 <view class="container">
-  <!-- Hero 顶部品牌区（仿"看准"风格：深色渐变背景 + 大标题 + 大圆角搜索框） -->
+  <!-- Hero 顶部品牌区 -->
   <view class="hero">
     <view class="hero-brand">面试准备盒</view>
     <view class="hero-title">面试前，准备一下</view>
@@ -39,7 +48,6 @@
                   bind:linconfirm="endsearchList">
     </l-search-bar>
 
-    <!-- 热门搜索 / 快捷入口 -->
     <view class="hero-tags">
       <view class="hero-tag" data-kw="劳动争议" bindtap="onTagTap">劳动争议</view>
       <view class="hero-tag" data-kw="行政处罚" bindtap="onTagTap">行政处罚</view>
@@ -59,31 +67,62 @@
     <view class="section-extra">仅供参考</view>
   </view>
 
-  <!-- 卡片列表 START -->
+  <!-- 公司卡片列表 -->
   <block wx:for="{{companyData.companys}}" wx:key="id">
-    <view class="card-companys">
-      <l-card type="avatar"
-              l-class="card"
-              image="{{item.logo}}"
-              title="{{item.name}}"
-              describe="地址：{{item.province}} / {{item.city}} / {{item.district}}">
-        <view class="card-content">
-          <view><text>详细地址：{{item.address}}</text></view>
-          <view><text>信息来源：{{item.source}}</text></view>
+    <view class="card-wrap" data-id="{{item.id}}" bindtap="goDetail" hover-class="card-hover">
+
+      <!-- ① 顶部：Logo + 公司名（省略） + 跳转箭头 -->
+      <view class="card-head">
+        <image class="card-logo" src="{{item.logo}}" mode="aspectFill" />
+        <view class="card-name">{{tagColor.ellipsis(item.name, 16)}}</view>
+        <l-icon name="right" size="28" color="#999999" />
+      </view>
+
+      <!-- ② 标签行：状态 + 规模 + 风险（按维度配色） -->
+      <view class="card-tags">
+        <l-tag wx:if="{{item.status}}"
+               shape="circle"
+               size="small"
+               bg-color="{{tagColor.status(item.status).bg}}"
+               font-color="{{tagColor.status(item.status).font}}">{{item.status}}</l-tag>
+
+        <l-tag wx:for="{{item.scaleTags}}" wx:for-item="t" wx:key="*this"
+               shape="circle"
+               size="small"
+               bg-color="{{tagColor.scale().bg}}"
+               font-color="{{tagColor.scale().font}}">{{t}}</l-tag>
+
+        <l-tag wx:for="{{item.riskTags}}" wx:for-item="r" wx:key="label"
+               shape="circle"
+               size="small"
+               bg-color="{{tagColor.risk().bg}}"
+               font-color="{{tagColor.risk().font}}">{{r.label}}</l-tag>
+      </view>
+
+      <!-- ③ 三列工商信息：法人 / 注册资本 / 成立日期 -->
+      <view class="card-meta">
+        <view class="meta-col">
+          <view class="meta-label">法定代表人</view>
+          <view class="meta-value">{{item.legalRepresentative}}</view>
         </view>
-        <l-tag shape="circle"
-               bg-color="{{tagColor(item.type).bg}}"
-               font-color="{{tagColor(item.type).font}}"
-               slot="more"
-               size="large">
-          {{item.type}}
-        </l-tag>
-      </l-card>
+        <view class="meta-col">
+          <view class="meta-label">注册资本</view>
+          <view class="meta-value">{{item.registeredCapital}}</view>
+        </view>
+        <view class="meta-col">
+          <view class="meta-label">成立日期</view>
+          <view class="meta-value">{{item.establishDate}}</view>
+        </view>
+      </view>
+
+      <!-- ④ 地址（省/市/区） -->
+      <view class="card-addr">
+        地址：{{item.province}}{{item.city ? ' / ' + item.city : ''}}{{item.district ? ' / ' + item.district : ''}}
+      </view>
     </view>
   </block>
-  <!-- 卡片列表 END -->
 
-  <!-- 页脚合规入口 -->
+  <!-- 页脚链接 -->
   <view class="footer-links">
     <text class="link" bindtap="goNotice">投稿须知</text>
     <text class="sep">·</text>

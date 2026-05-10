@@ -11,6 +11,10 @@ class Company {
     return await DataSource.searchCompanies(keyword);
   }
 
+  static async getById(id) {
+    return await DataSource.getCompanyById(id);
+  }
+
   static async addCompanyInfo(companyData) {
     return await DataSource.addCompany(companyData);
   }

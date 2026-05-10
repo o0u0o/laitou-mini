@@ -1,2 +1,136 @@
-<l-card>
-</l-card>
+<wxs module="tagColor">
+  module.exports = {
+    status: function (s) {
+      if (!s) return { bg: '#F0F2F5', font: '#999999' };
+      if (s === '存续' || s === '在业') return { bg: '#E8F3EF', font: '#157658' };
+      return { bg: '#F0F2F5', font: '#999999' };
+    },
+    scale: function () { return { bg: '#ECF0FA', font: '#3963BC' }; },
+    risk:  function () { return { bg: '#FDECEC', font: '#D94F4F' }; }
+  }
+</wxs>
+
+<view class="d-container" wx:if="{{company}}">
+
+  <!-- ====== Header：Logo + 公司名 + 信用代码 + 标签 ====== -->
+  <view class="d-header">
+    <view class="d-header-top">
+      <image class="d-logo" src="{{company.logo}}" mode="aspectFill" />
+      <view class="d-header-main">
+        <view class="d-name">{{company.name}}</view>
+        <view class="d-code" wx:if="{{company.socialCreditCode}}" bindtap="copyCode">
+          <text>统一社会信用代码：{{company.socialCreditCode}}</text>
+          <text class="d-copy-btn">复制</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="d-tags">
+      <l-tag wx:if="{{company.status}}"
+             shape="circle" size="small"
+             bg-color="{{tagColor.status(company.status).bg}}"
+             font-color="{{tagColor.status(company.status).font}}">{{company.status}}</l-tag>
+      <l-tag wx:for="{{company.scaleTags}}" wx:for-item="t" wx:key="*this"
+             shape="circle" size="small"
+             bg-color="{{tagColor.scale().bg}}"
+             font-color="{{tagColor.scale().font}}">{{t}}</l-tag>
+      <l-tag wx:for="{{company.riskTags}}" wx:for-item="r" wx:key="label"
+             shape="circle" size="small"
+             bg-color="{{tagColor.risk().bg}}"
+             font-color="{{tagColor.risk().font}}">{{r.label}}</l-tag>
+    </view>
+  </view>
+
+  <!-- ====== Tab 切换 ====== -->
+  <l-segment current="{{activeTab}}" bind:linchange="onTabChange">
+    <l-segment-item key="0" label="基本信息" />
+    <l-segment-item key="1" label="风险信息" />
+    <l-segment-item key="2" label="元信息" />
+  </l-segment>
+
+  <!-- ============ 基本信息 ============ -->
+  <view class="d-panel" hidden="{{activeTab !== 0}}">
+    <view class="info-row">
+      <view class="info-label">法定代表人</view>
+      <view class="info-value">{{company.legalRepresentative}}</view>
+    </view>
+    <view class="info-row">
+      <view class="info-label">注册资本</view>
+      <view class="info-value">{{company.registeredCapital}}</view>
+    </view>
+    <view class="info-row">
+      <view class="info-label">成立日期</view>
+      <view class="info-value">{{company.establishDate}}</view>
+    </view>
+    <view class="info-row">
+      <view class="info-label">经营状态</view>
+      <view class="info-value">{{company.status}}</view>
+    </view>
+    <view class="info-row">
+      <view class="info-label">所在地区</view>
+      <view class="info-value">{{company.province}}{{company.city ? ' / ' + company.city : ''}}{{company.district ? ' / ' + company.district : ''}}</view>
+    </view>
+    <view class="info-row">
+      <view class="info-label">详细地址</view>
+      <view class="info-value">{{company.address}}</view>
+    </view>
+    <view class="info-row" wx:if="{{company.remark}}">
+      <view class="info-label">备注说明</view>
+      <view class="info-value">{{company.remark}}</view>
+    </view>
+  </view>
+
+  <!-- ============ 风险信息 ============ -->
+  <view class="d-panel" hidden="{{activeTab !== 1}}">
+    <block wx:if="{{company.riskTags && company.riskTags.length}}">
+      <view class="risk-card" wx:for="{{company.riskTags}}" wx:for-item="r" wx:key="label">
+        <view class="risk-head">
+          <l-tag shape="circle" size="small"
+                 bg-color="{{tagColor.risk().bg}}"
+                 font-color="{{tagColor.risk().font}}">{{r.label}}</l-tag>
+          <text class="risk-date" wx:if="{{r.date}}">{{r.date}}</text>
+        </view>
+        <view class="risk-source" wx:if="{{r.source}}">来源：{{r.source}}</view>
+      </view>
+    </block>
+    <view class="d-empty" wx:else>暂无公开风险记录</view>
+
+    <!-- 扩展子列表占位（后续接 API 填充） -->
+    <view class="sub-section">
+      <view class="sub-title">被执行人记录</view>
+      <view class="d-empty">暂未对接执行信息公开网</view>
+    </view>
+    <view class="sub-section">
+      <view class="sub-title">限制消费令</view>
+      <view class="d-empty">暂未对接执行信息公开网</view>
+    </view>
+  </view>
+
+  <!-- ============ 元信息 ============ -->
+  <view class="d-panel" hidden="{{activeTab !== 2}}">
+    <view class="info-row">
+      <view class="info-label">信息来源</view>
+      <view class="info-value">{{company.source}}</view>
+    </view>
+    <view class="info-row">
+      <view class="info-label">数据更新</view>
+      <view class="info-value">{{company.update_time}}</view>
+    </view>
+    <view class="info-row">
+      <view class="info-label">数据创建</view>
+      <view class="info-value">{{company.create_time}}</view>
+    </view>
+    <view class="info-row">
+      <view class="info-label">是否核实</view>
+      <view class="info-value">{{company.is_real ? '已核实公开来源' : '未核实'}}</view>
+    </view>
+  </view>
+
+  <!-- ====== 底部申诉入口 ====== -->
+  <view class="d-footer">
+    <view class="d-footer-tip">信息有误？欢迎核验后申诉。</view>
+    <l-button type="primary" plain="{{true}}" size="medium" bind:lintap="goAppeal">申诉 / 反馈</l-button>
+  </view>
+</view>
+
+<view class="d-loading" wx:else>加载中...</view>

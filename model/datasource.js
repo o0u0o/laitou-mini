@@ -16,16 +16,74 @@ import { Http } from '../utils/http';
 const localCompanies  = require('../data/companies.js');
 const localCategories = require('../data/categories.js');
 
+// ---------------- 字段补全 ----------------
+// 旧数据只有 type/source/remark，新版页面需要 status/scaleTags/riskTags/法人/信用代码 等。
+// 这里在「读取」时统一补齐，避免一次性手工改 20 条数据；
+// 后端就绪后该函数可整体删除——返回结构与服务端约定一致。
+function normalize(c) {
+  if (!c) return c;
+  if (c._normalized) return c;
+
+  const remark = c.remark || '';
+  const source = c.source || '';
+
+  // 1) 法定代表人（优先字段，其次从 remark 抓）
+  let legalRepresentative = c.legalRepresentative;
+  if (!legalRepresentative) {
+    const m = remark.match(/法定代表人[：:]\s*([^\s。，,；;]+)/);
+    legalRepresentative = m ? m[1] : '未公开';
+  }
+
+  // 2) 统一社会信用代码
+  let socialCreditCode = c.socialCreditCode;
+  if (!socialCreditCode) {
+    const m = source.match(/统一社会信用代码[：:]\s*([0-9A-Z]{15,18})/);
+    socialCreditCode = m ? m[1] : '';
+  }
+
+  // 3) 经营状态：默认存续；remark 出现"注销"则注销
+  let status = c.status;
+  if (!status) status = /注销/.test(remark) ? '注销' : '存续';
+
+  // 4) 规模标签：默认小微（数据集均为小微/未公开公司）
+  const scaleTags = c.scaleTags && c.scaleTags.length ? c.scaleTags : ['小微企业'];
+
+  // 5) 风险标签：用 type + source + update_time 兜底构造一条
+  let riskTags = c.riskTags;
+  if (!riskTags || !riskTags.length) {
+    riskTags = c.type ? [{
+      label: c.type,
+      source: source,
+      date: c.update_time || ''
+    }] : [];
+  }
+
+  return Object.assign({}, c, {
+    status,
+    scaleTags,
+    riskTags,
+    legalRepresentative,
+    registeredCapital: c.registeredCapital || '未公开',
+    establishDate: c.establishDate || '未公开',
+    socialCreditCode,
+    _normalized: true
+  });
+}
+
+function normalizeList(list) {
+  return (list || []).map(normalize);
+}
+
 class DataSource {
 
   // ======================== 公司列表（按城市） ========================
   static async getCompaniesByCity(cityName) {
     if (config.useLocalData) {
-      // 本地简单过滤
       const filtered = localCompanies.companys.filter(
         c => c.city.indexOf(cityName) > -1
       );
-      return { companys: filtered.length ? filtered : localCompanies.companys };
+      const result = filtered.length ? filtered : localCompanies.companys;
+      return { companys: normalizeList(result) };
     }
     return await Http.request({
       url: `/app/company/list/city/${cityName}`
@@ -35,7 +93,7 @@ class DataSource {
   // ======================== 公司搜索（关键词） ========================
   static async searchCompanies(keyword) {
     if (config.useLocalData) {
-      if (!keyword) return localCompanies;
+      if (!keyword) return { companys: normalizeList(localCompanies.companys) };
       const kw = keyword.toLowerCase();
       const filtered = localCompanies.companys.filter(c =>
         c.name.toLowerCase().indexOf(kw) > -1 ||
@@ -44,11 +102,24 @@ class DataSource {
         (c.source && c.source.indexOf(kw) > -1) ||
         (c.remark && c.remark.indexOf(kw) > -1)
       );
-      return { companys: filtered.length ? filtered : localCompanies.companys };
+      const result = filtered.length ? filtered : localCompanies.companys;
+      return { companys: normalizeList(result) };
     }
     return await Http.request({
       url: '/app/company/list/like',
       data: { keyword }
+    });
+  }
+
+  // ======================== 公司详情（按 id） ========================
+  static async getCompanyById(id) {
+    if (config.useLocalData) {
+      const cid = Number(id);
+      const found = localCompanies.companys.find(c => c.id === cid);
+      return found ? normalize(found) : null;
+    }
+    return await Http.request({
+      url: `/app/company/${id}`
     });
   }
 
