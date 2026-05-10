@@ -6,7 +6,15 @@
       return { bg: '#F0F2F5', font: '#999999' };
     },
     scale: function () { return { bg: '#ECF0FA', font: '#3963BC' }; },
-    risk:  function () { return { bg: '#FDECEC', font: '#D94F4F' }; }
+    risk:  function () { return { bg: '#FDECEC', font: '#D94F4F' }; },
+    stars: function (n) {
+      n = Number(n) || 0;
+      if (n < 0) n = 0;
+      if (n > 5) n = 5;
+      var s = '';
+      for (var i = 0; i < 5; i++) { s += i < n ? '★' : '☆'; }
+      return s;
+    }
   }
 </wxs>
 
@@ -169,7 +177,7 @@
           <text class="rev-score-unit">/ 5.0</text>
         </view>
         <view class="rev-score-side">
-          <l-rate score="{{review.avgInt}}" disabled="{{true}}" size="32" />
+          <text class="rev-stars">{{tagColor.stars(review.avgInt)}}</text>
           <view class="rev-score-count">{{review.total}} 人已点评</view>
         </view>
       </view>
@@ -201,7 +209,7 @@
               <text class="rev-item-name">{{r.author}}</text>
               <text class="rev-item-tag" wx:if="{{r.position}}">{{r.position}}</text>
             </view>
-            <l-rate score="{{r.score}}" disabled="{{true}}" size="24" />
+            <text class="rev-stars rev-stars-sm">{{tagColor.stars(r.score)}}</text>
           </view>
           <view class="rev-item-content">{{r.content}}</view>
           <view class="rev-item-tags" wx:if="{{r.tags && r.tags.length}}">

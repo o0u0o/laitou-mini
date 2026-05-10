@@ -314,6 +314,18 @@
 .rev-score-side {
     flex: 1;
 }
+.rev-stars {
+    font-size: 36rpx;
+    color: #FFB400;
+    letter-spacing: 4rpx;
+    line-height: 1;
+}
+.rev-stars-sm {
+    font-size: 26rpx;
+    color: #FFB400;
+    letter-spacing: 2rpx;
+    flex-shrink: 0;
+}
 .rev-score-count {
     margin-top: 8rpx;
     font-size: 24rpx;
