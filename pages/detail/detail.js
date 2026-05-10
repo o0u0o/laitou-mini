@@ -31,7 +31,13 @@ Page({
 
   // l-segment 切换
   onTabChange(e) {
-    this.setData({ activeTab: Number(e.detail.index) });
+    // l-segment 的 linchange 事件 detail: { activeKey, currentIndex }
+    const d = e && e.detail || {};
+    const idx = d.currentIndex !== undefined ? d.currentIndex
+              : d.activeKey !== undefined    ? d.activeKey
+              : d.index;
+    const n = Number(idx);
+    this.setData({ activeTab: isNaN(n) ? 0 : n });
   },
 
   // 复制信用代码
