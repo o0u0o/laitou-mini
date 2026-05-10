@@ -1,6 +1,4 @@
 <wxs module="tagColor">
-  var STAR_FULL  = String.fromCharCode(9733);
-  var STAR_EMPTY = String.fromCharCode(9734);
   module.exports = {
     status: function (s) {
       if (!s) return { bg: '#F0F2F5', font: '#999999' };
@@ -11,15 +9,16 @@
     scale: function () { return { bg: '#ECF0FA', font: '#3963BC' }; },
     risk:  function () { return { bg: '#FDECEC', font: '#D94F4F' }; },
     stars: function (n) {
-      var v = Number(n);
-      if (isNaN(v)) v = 0;
+      var v = n * 1;
+      if (v !== v) v = 0;
       if (v < 0) v = 0;
       if (v > 5) v = 5;
-      var s = '';
-      for (var i = 0; i < 5; i++) {
-        s += i < v ? STAR_FULL : STAR_EMPTY;
-      }
-      return s;
+      var arr = ['', '★', '★★', '★★★', '★★★★', '★★★★★'];
+      var rest = ['☆☆☆☆☆', '☆☆☆☆', '☆☆☆', '☆☆', '☆', ''];
+      var idx = v >> 0;
+      if (idx < 0) idx = 0;
+      if (idx > 5) idx = 5;
+      return arr[idx] + rest[idx];
     }
   }
 </wxs>
