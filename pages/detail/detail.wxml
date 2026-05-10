@@ -1,18 +1,24 @@
 <wxs module="tagColor">
+  var STAR_FULL  = String.fromCharCode(9733);
+  var STAR_EMPTY = String.fromCharCode(9734);
   module.exports = {
     status: function (s) {
       if (!s) return { bg: '#F0F2F5', font: '#999999' };
-      if (s === '存续' || s === '在业') return { bg: '#E8F3EF', font: '#157658' };
+      if (s === '存续') return { bg: '#E8F3EF', font: '#157658' };
+      if (s === '在业') return { bg: '#E8F3EF', font: '#157658' };
       return { bg: '#F0F2F5', font: '#999999' };
     },
     scale: function () { return { bg: '#ECF0FA', font: '#3963BC' }; },
     risk:  function () { return { bg: '#FDECEC', font: '#D94F4F' }; },
     stars: function (n) {
-      n = Number(n) || 0;
-      if (n < 0) n = 0;
-      if (n > 5) n = 5;
+      var v = Number(n);
+      if (isNaN(v)) v = 0;
+      if (v < 0) v = 0;
+      if (v > 5) v = 5;
       var s = '';
-      for (var i = 0; i < 5; i++) { s += i < n ? '★' : '☆'; }
+      for (var i = 0; i < 5; i++) {
+        s += i < v ? STAR_FULL : STAR_EMPTY;
+      }
       return s;
     }
   }
