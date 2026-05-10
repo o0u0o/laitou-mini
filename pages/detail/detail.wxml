@@ -44,27 +44,27 @@
   <!-- ====== Tab 切换 ====== -->
   <l-segment current="{{activeTab}}" bind:linchange="onTabChange">
     <l-segment-item key="0" label="基本信息" />
-    <l-segment-item key="1" label="风险信息" />
-    <l-segment-item key="2" label="元信息" />
+    <l-segment-item key="1" label="薪资" />
+    <l-segment-item key="2" label="点评" />
   </l-segment>
 
   <!-- ============ 基本信息 ============ -->
   <view class="d-panel" hidden="{{activeTab !== 0}}">
     <view class="info-row">
       <view class="info-label">法定代表人</view>
-      <view class="info-value">{{company.legalRepresentative}}</view>
+      <view class="info-value">{{company.legalRepresentative || '—'}}</view>
     </view>
     <view class="info-row">
       <view class="info-label">注册资本</view>
-      <view class="info-value">{{company.registeredCapital}}</view>
+      <view class="info-value">{{company.registeredCapital || '—'}}</view>
     </view>
     <view class="info-row">
       <view class="info-label">成立日期</view>
-      <view class="info-value">{{company.establishDate}}</view>
+      <view class="info-value">{{company.establishDate || '—'}}</view>
     </view>
     <view class="info-row">
       <view class="info-label">经营状态</view>
-      <view class="info-value">{{company.status}}</view>
+      <view class="info-value">{{company.status || '—'}}</view>
     </view>
     <view class="info-row">
       <view class="info-label">所在地区</view>
@@ -72,17 +72,16 @@
     </view>
     <view class="info-row">
       <view class="info-label">详细地址</view>
-      <view class="info-value">{{company.address}}</view>
+      <view class="info-value">{{company.address || '—'}}</view>
     </view>
     <view class="info-row" wx:if="{{company.remark}}">
       <view class="info-label">备注说明</view>
       <view class="info-value">{{company.remark}}</view>
     </view>
-  </view>
 
-  <!-- ============ 风险信息 ============ -->
-  <view class="d-panel" hidden="{{activeTab !== 1}}">
-    <block wx:if="{{company.riskTags && company.riskTags.length}}">
+    <!-- 风险信息折叠到基本信息底部 -->
+    <view class="sub-section" wx:if="{{company.riskTags && company.riskTags.length}}">
+      <view class="sub-title">风险提示</view>
       <view class="risk-card" wx:for="{{company.riskTags}}" wx:for-item="r" wx:key="label">
         <view class="risk-head">
           <l-tag shape="circle" size="small"
@@ -92,38 +91,149 @@
         </view>
         <view class="risk-source" wx:if="{{r.source}}">来源：{{r.source}}</view>
       </view>
-    </block>
-    <view class="d-empty" wx:else>暂无公开风险记录</view>
-
-    <!-- 扩展子列表占位（后续接 API 填充） -->
-    <view class="sub-section">
-      <view class="sub-title">被执行人记录</view>
-      <view class="d-empty">暂未对接执行信息公开网</view>
-    </view>
-    <view class="sub-section">
-      <view class="sub-title">限制消费令</view>
-      <view class="d-empty">暂未对接执行信息公开网</view>
     </view>
   </view>
 
-  <!-- ============ 元信息 ============ -->
+  <!-- ============ 薪资 ============ -->
+  <view class="d-panel" hidden="{{activeTab !== 1}}">
+    <block wx:if="{{salary.total > 0}}">
+      <!-- 薪资概览：平均月薪 + 样本数 -->
+      <view class="sal-overview">
+        <view class="sal-overview-main">
+          <view class="sal-amount">
+            <text class="sal-amount-num">{{salary.avg}}</text>
+            <text class="sal-amount-unit">元/月</text>
+          </view>
+          <view class="sal-overview-sub">平均月薪 · 来自 {{salary.total}} 位用户分享</view>
+        </view>
+        <view class="sal-range">
+          <text class="sal-range-low">{{salary.min}}</text>
+          <view class="sal-range-bar">
+            <view class="sal-range-bar-inner"></view>
+          </view>
+          <text class="sal-range-high">{{salary.max}}</text>
+        </view>
+      </view>
+
+      <!-- 按岗位汇总 -->
+      <view class="sub-section">
+        <view class="sub-title">按岗位汇总</view>
+        <view class="sal-job-row" wx:for="{{salary.byJob}}" wx:for-item="j" wx:key="title">
+          <view class="sal-job-info">
+            <view class="sal-job-title">{{j.title}}</view>
+            <view class="sal-job-meta">{{j.count}} 条样本</view>
+          </view>
+          <view class="sal-job-amount">
+            <text class="sal-job-num">{{j.avg}}</text>
+            <text class="sal-job-unit">元/月</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 最近薪资爆料 -->
+      <view class="sub-section">
+        <view class="sub-title">最近薪资爆料</view>
+        <view class="sal-item" wx:for="{{salary.list}}" wx:for-item="s" wx:key="id">
+          <view class="sal-item-head">
+            <text class="sal-item-title">{{s.title}}</text>
+            <text class="sal-item-amount">{{s.amount}} 元/月</text>
+          </view>
+          <view class="sal-item-meta">
+            <text>{{s.workYear}}</text>
+            <text class="sal-dot">·</text>
+            <text>{{s.city}}</text>
+            <text class="sal-dot">·</text>
+            <text>{{s.date}}</text>
+          </view>
+          <view class="sal-item-extra" wx:if="{{s.extra}}">{{s.extra}}</view>
+        </view>
+      </view>
+    </block>
+    <view class="d-empty" wx:else>
+      暂无薪资数据
+      <view class="d-empty-tip">成为第一位分享者，帮助更多求职者了解真实薪资</view>
+    </view>
+
+    <view class="sal-cta">
+      <l-button type="primary" plain="{{true}}" size="medium" bind:lintap="goContributeSalary">爆料我的薪资</l-button>
+    </view>
+  </view>
+
+  <!-- ============ 点评 ============ -->
   <view class="d-panel" hidden="{{activeTab !== 2}}">
-    <view class="info-row">
-      <view class="info-label">信息来源</view>
-      <view class="info-value">{{company.source}}</view>
+    <block wx:if="{{review.total > 0}}">
+      <!-- 评分概览 -->
+      <view class="rev-overview">
+        <view class="rev-score">
+          <text class="rev-score-num">{{review.avg}}</text>
+          <text class="rev-score-unit">/ 5.0</text>
+        </view>
+        <view class="rev-score-side">
+          <l-rate value="{{review.avgInt}}" disabled="{{true}}" size="32" />
+          <view class="rev-score-count">{{review.total}} 人已点评</view>
+        </view>
+      </view>
+
+      <!-- 推荐指数 -->
+      <view class="rev-recommend">
+        <view class="rev-recommend-num">{{review.recommendRate}}%</view>
+        <view class="rev-recommend-label">推荐入职</view>
+      </view>
+
+      <!-- 维度分布 -->
+      <view class="sub-section">
+        <view class="sub-title">维度评分</view>
+        <view class="rev-dim-row" wx:for="{{review.dimensions}}" wx:for-item="d" wx:key="label">
+          <view class="rev-dim-label">{{d.label}}</view>
+          <view class="rev-dim-bar">
+            <view class="rev-dim-bar-inner" style="width: {{d.percent}}%"></view>
+          </view>
+          <view class="rev-dim-num">{{d.score}}</view>
+        </view>
+      </view>
+
+      <!-- 点评列表 -->
+      <view class="sub-section">
+        <view class="sub-title">最新点评</view>
+        <view class="rev-item" wx:for="{{review.list}}" wx:for-item="r" wx:key="id">
+          <view class="rev-item-head">
+            <view class="rev-item-user">
+              <text class="rev-item-name">{{r.author}}</text>
+              <text class="rev-item-tag" wx:if="{{r.position}}">{{r.position}}</text>
+            </view>
+            <l-rate value="{{r.score}}" disabled="{{true}}" size="24" />
+          </view>
+          <view class="rev-item-content">{{r.content}}</view>
+          <view class="rev-item-tags" wx:if="{{r.tags && r.tags.length}}">
+            <l-tag wx:for="{{r.tags}}" wx:for-item="t" wx:key="*this"
+                   shape="circle" size="small"
+                   bg-color="#F0F2F5" font-color="#666666">{{t}}</l-tag>
+          </view>
+          <view class="rev-item-meta">
+            <text>{{r.workYear}}</text>
+            <text class="sal-dot">·</text>
+            <text>{{r.date}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+    <view class="d-empty" wx:else>
+      暂无点评
+      <view class="d-empty-tip">真实点评由前/在职员工提交，欢迎成为第一位分享者</view>
     </view>
-    <view class="info-row">
-      <view class="info-label">数据更新</view>
-      <view class="info-value">{{company.update_time}}</view>
+
+    <view class="sal-cta">
+      <l-button type="primary" plain="{{true}}" size="medium" bind:lintap="goContributeReview">写点评</l-button>
     </view>
-    <view class="info-row">
-      <view class="info-label">数据创建</view>
-      <view class="info-value">{{company.create_time}}</view>
-    </view>
-    <view class="info-row">
-      <view class="info-label">是否核实</view>
-      <view class="info-value">{{company.is_real ? '已核实公开来源' : '未核实'}}</view>
-    </view>
+  </view>
+
+  <!-- ============ 元信息（页脚区域，常驻显示） ============ -->
+  <view class="d-meta">
+    <text>来源：{{company.source || '—'}}</text>
+    <text class="sal-dot">·</text>
+    <text>更新于 {{company.update_time || '—'}}</text>
+    <text class="sal-dot">·</text>
+    <text>{{company.is_real ? '已核实' : '未核实'}}</text>
   </view>
 
   <!-- ====== 底部申诉入口 ====== -->

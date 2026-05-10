@@ -4,7 +4,9 @@ import { Company } from "../../model/company";
 Page({
   data: {
     company: null,
-    activeTab: 0  // 0=基本信息  1=风险信息  2=元信息
+    activeTab: 0,  // 0=基本信息  1=薪资  2=点评
+    salary: { total: 0 },
+    review: { total: 0 }
   },
 
   async onLoad(options) {
@@ -19,7 +21,12 @@ Page({
       return;
     }
     wx.setNavigationBarTitle({ title: company.name });
-    this.setData({ company });
+
+    this.setData({
+      company,
+      salary: this._buildSalary(company),
+      review: this._buildReview(company)
+    });
   },
 
   // l-segment 切换
@@ -37,5 +44,102 @@ Page({
   // 申诉入口
   goAppeal() {
     wx.navigateTo({ url: '/pages/appeal/appeal' });
+  },
+
+  // 爆料薪资
+  goContributeSalary() {
+    wx.navigateTo({ url: '/pages/contribute/contribute?type=salary&companyId=' + (this.data.company && this.data.company.id || '') });
+  },
+
+  // 写点评
+  goContributeReview() {
+    wx.navigateTo({ url: '/pages/contribute/contribute?type=review&companyId=' + (this.data.company && this.data.company.id || '') });
+  },
+
+  /**
+   * 薪资视图模型
+   * 数据来源优先级：company.salaries（用户爆料数组） > 空态
+   * 单条 salary 字段约定：{ id, title, amount, workYear, city, date, extra }
+   */
+  _buildSalary(company) {
+    const list = (company && company.salaries) || [];
+    if (!list.length) return { total: 0 };
+
+    const amounts = list.map(s => Number(s.amount) || 0).filter(n => n > 0);
+    const sum = amounts.reduce((a, b) => a + b, 0);
+    const avg = amounts.length ? Math.round(sum / amounts.length) : 0;
+    const min = amounts.length ? Math.min.apply(null, amounts) : 0;
+    const max = amounts.length ? Math.max.apply(null, amounts) : 0;
+
+    // 按岗位聚合
+    const jobMap = {};
+    list.forEach(s => {
+      const t = s.title || '其他岗位';
+      if (!jobMap[t]) jobMap[t] = { title: t, count: 0, sum: 0 };
+      jobMap[t].count += 1;
+      jobMap[t].sum += Number(s.amount) || 0;
+    });
+    const byJob = Object.keys(jobMap).map(k => ({
+      title: jobMap[k].title,
+      count: jobMap[k].count,
+      avg: jobMap[k].count ? Math.round(jobMap[k].sum / jobMap[k].count) : 0
+    })).sort((a, b) => b.count - a.count);
+
+    // 按时间倒序，最多展示 5 条
+    const sortedList = list.slice().sort((a, b) => {
+      return (b.date || '').localeCompare(a.date || '');
+    }).slice(0, 5);
+
+    return {
+      total: list.length,
+      avg, min, max,
+      byJob,
+      list: sortedList
+    };
+  },
+
+  /**
+   * 点评视图模型
+   * 数据来源：company.reviews 数组
+   * 单条字段：{ id, author, position, score(1-5), recommend(bool), content, tags[], workYear, date, dimensions{ salary, growth, culture, workLife } }
+   */
+  _buildReview(company) {
+    const list = (company && company.reviews) || [];
+    if (!list.length) return { total: 0 };
+
+    const scores = list.map(r => Number(r.score) || 0);
+    const avg = scores.length ? (scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
+    const recommendCount = list.filter(r => r.recommend).length;
+    const recommendRate = list.length ? Math.round(recommendCount / list.length * 100) : 0;
+
+    // 维度聚合（5 分制）
+    const dimKeys = [
+      { key: 'salary', label: '薪酬福利' },
+      { key: 'growth', label: '成长空间' },
+      { key: 'culture', label: '企业文化' },
+      { key: 'workLife', label: '工作强度' }
+    ];
+    const dimensions = dimKeys.map(d => {
+      const arr = list.map(r => r.dimensions && Number(r.dimensions[d.key])).filter(n => n > 0);
+      const s = arr.length ? (arr.reduce((a, b) => a + b, 0) / arr.length) : 0;
+      return {
+        label: d.label,
+        score: s.toFixed(1),
+        percent: Math.round(s / 5 * 100)
+      };
+    });
+
+    const sortedList = list.slice().sort((a, b) => {
+      return (b.date || '').localeCompare(a.date || '');
+    }).slice(0, 10);
+
+    return {
+      total: list.length,
+      avg: avg.toFixed(1),
+      avgInt: Math.round(avg),
+      recommendRate,
+      dimensions,
+      list: sortedList
+    };
   }
 })
