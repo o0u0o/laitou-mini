@@ -1,75 +1,36 @@
 import { config } from "./config/config";
 import { DataSource } from "./model/datasource";
+import { promisic } from "./utils/util";
 
 App({
-  onLaunch: function () {
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+  globalData: {
+    userInfo: null,
+    openID: ''
+  },
 
-    // 本地数据模式下跳过真实登录
+  async onLaunch() {
+    // 启动日志（保留 1 条审计）
+    const logs = wx.getStorageSync('logs') || [];
+    logs.unshift(Date.now());
+    wx.setStorageSync('logs', logs);
+
+    // 本地数据模式：跳过真实登录，给伪造 openid 即可
     if (config.useLocalData) {
       this.globalData.openID = 'local-openid-0001';
       return;
     }
 
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        if(res.code){
-          var that = getApp();
-          wx.request({
-            url: config.apiBaseUrl +'/wechat/session/info',
-            data:{
-              code: res.code
-            },
-            method: 'GET',
-            header: { 'content-type': 'application/json' },
-            success: function (openIdRes) {
-              console.info("获取用户openId成功");
-              that.globalData.openID = openIdRes.data.openid;
-            },
-            fail: function (error) {
-              console.info("获取用户openId失败");
-              this.globalData.openID = "失败2";
-              console.info(error);
-            },
-            complete: function (openIdRes) {
-              //this.globalData.openID ="Complete";
+    // 真实登录：wx.login -> 后端换 openId（统一走 DataSource，便于切换/Mock）
+    try {
+      const { code } = await promisic(wx.login)();
+      if (!code) return;
+      const res = await DataSource.getSessionInfo(code);
+      this.globalData.openID = res && res.openid ? res.openid : '';
+    } catch (e) {
+      // 登录失败不阻塞页面渲染；具体错误已由 Http 统一 toast
+    }
 
-            }
-          })
-
-        }
-        console.log(res.code)
-
-      }
-    })
-
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              // 可以将 res 发送给后台解码出 unionId
-              this.globalData.userInfo = res.userInfo
-
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
-              }
-            }
-          })
-        }
-      }
-    })
-  },
-  globalData: {
-    userInfo: null
+    // 注意：wx.getUserInfo 自基础库 2.10.4 起已废弃。
+    // 需要用户头像/昵称时，请在页面通过 <button open-type="getUserInfo"> 或 wx.getUserProfile 触发。
   }
 })

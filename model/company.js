@@ -1,10 +1,8 @@
 import { DataSource } from './datasource';
 
 class Company {
-  static cityName = '深圳'
-
-  static async getCompanyByCity() {
-    return await DataSource.getCompaniesByCity(Company.cityName);
+  static async getByCity(cityName) {
+    return await DataSource.getCompaniesByCity(cityName);
   }
 
   static async searchByKeyword(keyword) {

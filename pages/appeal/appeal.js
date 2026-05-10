@@ -8,10 +8,10 @@ Page({
     }
   },
 
-  bindType(e) { this.data.form.type = e.detail.value; },
-  bindTarget(e) { this.data.form.target = e.detail.value; },
-  bindContact(e) { this.data.form.contact = e.detail.value; },
-  bindContent(e) { this.data.form.content = e.detail.value; },
+  bindType(e)    { this.setData({ 'form.type':    e.detail.value }); },
+  bindTarget(e)  { this.setData({ 'form.target':  e.detail.value }); },
+  bindContact(e) { this.setData({ 'form.contact': e.detail.value }); },
+  bindContent(e) { this.setData({ 'form.content': e.detail.value }); },
 
   submit() {
     const f = this.data.form;

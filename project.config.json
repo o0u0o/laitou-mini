@@ -25,7 +25,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.9.3",
+	"libVersion": "2.30.4",
 	"appid": "wx170952d17cff2045",
 	"projectname": "prepbox",
 	"debugOptions": {
