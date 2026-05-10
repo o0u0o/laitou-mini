@@ -238,3 +238,68 @@
     color: var(--color-text-3);
 }
 
+/* ============= 隐私授权弹窗 ============= */
+.privacy-mask {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 60rpx;
+}
+.privacy-modal {
+    width: 100%;
+    max-width: 600rpx;
+    background-color: #FFFFFF;
+    border-radius: 24rpx;
+    padding: 48rpx 40rpx 32rpx;
+    box-shadow: 0 16rpx 48rpx rgba(0, 0, 0, 0.18);
+}
+.privacy-title {
+    font-size: 32rpx;
+    font-weight: 700;
+    color: var(--color-text);
+    text-align: center;
+    margin-bottom: var(--space-md);
+}
+.privacy-body {
+    font-size: 26rpx;
+    color: var(--color-text-2);
+    line-height: 1.8;
+    margin-bottom: var(--space-lg);
+}
+.privacy-link {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+.privacy-actions {
+    display: flex;
+    gap: var(--space-md);
+}
+.privacy-btn {
+    flex: 1;
+    height: 80rpx;
+    line-height: 80rpx;
+    font-size: 28rpx;
+    border-radius: 999rpx;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+.privacy-btn::after {
+    border: none;
+}
+.privacy-btn-reject {
+    background-color: var(--color-bg);
+    color: var(--color-text-2);
+}
+.privacy-btn-agree {
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+}
+.privacy-btn-agree:active {
+    background-color: #0E5C44;
+}
+

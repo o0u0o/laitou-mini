@@ -1,5 +1,7 @@
 Page({
   data: {
+    typeOptions: ['企业申诉', '内容更正', '删除请求', '其他'],
+    typeIndex: -1,
     form: {
       type: '',
       target: '',
@@ -8,7 +10,14 @@ Page({
     }
   },
 
-  bindType(e)    { this.setData({ 'form.type':    e.detail.value }); },
+  onTypePick(e) {
+    const idx = Number(e.detail.value);
+    this.setData({
+      typeIndex: idx,
+      'form.type': this.data.typeOptions[idx] || ''
+    });
+  },
+
   bindTarget(e)  { this.setData({ 'form.target':  e.detail.value }); },
   bindContact(e) { this.setData({ 'form.contact': e.detail.value }); },
   bindContent(e) { this.setData({ 'form.content': e.detail.value }); },

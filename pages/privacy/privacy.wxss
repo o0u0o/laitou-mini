@@ -13,33 +13,84 @@
 .meta {
     font-size: 24rpx;
     color: var(--color-text-3);
+    margin-bottom: var(--space-md);
+}
+
+/* 价值观 callout */
+.callout {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    padding: var(--space-md);
+    border-left: 6rpx solid var(--color-primary);
+    border-radius: 12rpx;
+    font-size: 26rpx;
+    line-height: 1.7;
     margin-bottom: var(--space-lg);
 }
 
 .h2 {
     font-size: 30rpx;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--color-text);
     margin: var(--space-lg) 0 var(--space-sm);
+    padding-left: 16rpx;
+    border-left: 6rpx solid var(--color-primary);
+}
+
+.h3 {
+    font-size: 28rpx;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: var(--space-md) 0 var(--space-xs);
 }
 
 .p {
     font-size: 26rpx;
     color: var(--color-text-2);
-    line-height: 1.7;
+    line-height: 1.8;
     margin-bottom: var(--space-sm);
 }
 
 .li {
     font-size: 26rpx;
     color: var(--color-text-2);
-    line-height: 1.7;
+    line-height: 1.8;
     padding-left: var(--space-md);
     position: relative;
+    margin-bottom: var(--space-xs);
 }
 .li::before {
     content: '·';
     position: absolute;
     left: 0;
     color: var(--color-primary);
+    font-weight: 700;
+}
+
+.strong {
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.code {
+    font-family: 'Menlo', 'Consolas', monospace;
+    font-size: 24rpx;
+    background-color: var(--color-bg-soft);
+    color: var(--color-primary);
+    padding: 2rpx 8rpx;
+    border-radius: 6rpx;
+}
+
+.link {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.footer-meta {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1rpx solid var(--color-border);
+    font-size: 22rpx;
+    color: var(--color-text-3);
+    line-height: 1.6;
 }

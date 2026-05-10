@@ -22,6 +22,34 @@
     margin-top: var(--space-sm);
 }
 
+/* 申诉类型 picker 行：与 l-input 视觉对齐 */
+.picker-row {
+    display: flex;
+    align-items: center;
+    height: 88rpx;
+    border-bottom: 1rpx solid var(--color-border);
+    font-size: 28rpx;
+}
+.picker-label {
+    width: 200rpx;
+    color: var(--color-text);
+    flex-shrink: 0;
+}
+.picker-label .required {
+    color: var(--color-danger);
+    margin-left: 4rpx;
+}
+.picker-value {
+    flex: 1;
+    color: var(--color-text);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.picker-value.placeholder {
+    color: #B5B5B5;
+}
+
 .actions {
     margin-top: var(--space-lg);
 }
