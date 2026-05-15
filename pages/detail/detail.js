@@ -8,8 +8,8 @@ Page({
     activeKey: '0', // l-segment 需要字符串 key
     salary: { total: 0 },
     review: { total: 0 },
-    // 默认匿名头像（点评卡片用）
-    defaultAvatar: 'https://img.icons8.com/fluency/96/user-male-circle.png',
+    // 默认匿名头像（当找不到匹配时作为备用）
+    defaultAvatar: '/imgs/avatar/1.png',
     // l-rate 的五角星图标（lin-ui 自带图标为爱心）
     starActive: 'https://img.icons8.com/fluency/48/star.png',
     starInactive: 'https://img.icons8.com/material-outlined/48/cccccc/star--v1.png'
@@ -167,7 +167,19 @@ Page({
 
     const sortedList = list.slice().sort((a, b) => {
       return (b.date || '').localeCompare(a.date || '');
-    }).slice(0, 10);
+    }).slice(0, 10).map((r, index) => {
+      if (!r.avatar) {
+        // 使用简单的长度/字符计算分配 1-5 对应的本地随机头像
+        const str = r.author || (r.id ? String(r.id) : String(index));
+        let num = 0;
+        for (let i = 0; i < str.length; i++) {
+          num += str.charCodeAt(i);
+        }
+        const avatarId = (num % 5) + 1;
+        r.avatar = `/imgs/avatar/${avatarId}.png`;
+      }
+      return r;
+    });
 
     return {
       total: list.length,
