@@ -274,3 +274,21 @@
     <view class="skeleton-line" style="width: 80%;"></view>
   </view>
 </view>
+
+<!-- ============= 隐私授权弹窗（基础库 >= 2.32.3） ============= -->
+<view class="privacy-mask" wx:if="{{showPrivacy}}" catchtouchmove="">
+  <view class="privacy-modal">
+    <view class="privacy-title">用户隐私保护提示</view>
+    <view class="privacy-body">
+      在您使用复制等功能前，需要您同意
+      <text class="privacy-link" bindtap="goPrivacyDetail">{{privacyContractName}}</text>
+      。点击"同意"即代表您已阅读并接受全部条款。
+    </view>
+    <view class="privacy-actions">
+      <button class="privacy-btn privacy-btn-reject" bindtap="onRejectPrivacy">拒绝</button>
+      <button class="privacy-btn privacy-btn-agree"
+              open-type="agreePrivacyAuthorization"
+              bindagreeprivacyauthorization="onAgreePrivacy">同意</button>
+    </view>
+  </view>
+</view>

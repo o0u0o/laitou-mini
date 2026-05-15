@@ -8,6 +8,9 @@ Page({
     activeKey: '0', // l-segment 需要字符串 key
     salary: { total: 0 },
     review: { total: 0 },
+    // 隐私授权弹窗
+    showPrivacy: false,
+    privacyContractName: '《隐私政策》',
     // 默认匿名头像（当找不到匹配时作为备用）
     defaultAvatar: '/imgs/avatar/1.png',
     // l-rate 的五角星图标（lin-ui 自带图标为爱心）
@@ -16,6 +19,7 @@ Page({
   },
 
   async onLoad(options) {
+    this._initPrivacy();
     const id = options && options.id;
     if (!id) {
       wx.showToast({ title: '缺少参数 id', icon: 'none' });
@@ -50,16 +54,61 @@ Page({
     });
   },
 
-  // 复制信用代码
+  // 复制信用代码（需隐私授权后才可调用剪贴板 API）
   copyCode() {
     const code = this.data.company && this.data.company.socialCreditCode;
     if (!code) return;
-    wx.setClipboardData({ 
-      data: code,
-      success: () => {
-        wx.showToast({ title: '复制成功', icon: 'success' });
-      }
+    const doCopy = () => {
+      wx.setClipboardData({
+        data: code,
+        success: () => {
+          wx.showToast({ title: '复制成功', icon: 'success' });
+        }
+      });
+    };
+    if (wx.requirePrivacyAuthorize) {
+      wx.requirePrivacyAuthorize({
+        success: doCopy,
+        fail: () => {
+          wx.showToast({ title: '需要同意隐私政策后才能复制', icon: 'none' });
+        }
+      });
+    } else {
+      doCopy();
+    }
+  },
+
+  // —— 隐私授权（基础库 >= 2.32.3 + __usePrivacyCheck__:true 时生效） ——
+  _initPrivacy() {
+    if (!wx.onNeedPrivacyAuthorization) return;
+    wx.onNeedPrivacyAuthorization((resolve) => {
+      this._privacyResolve = resolve;
+      wx.getPrivacySetting && wx.getPrivacySetting({
+        success: (res) => {
+          this.setData({
+            showPrivacy: true,
+            privacyContractName: res.privacyContractName || '《隐私政策》'
+          });
+        }
+      });
     });
+  },
+  onAgreePrivacy() {
+    this.setData({ showPrivacy: false });
+    if (typeof this._privacyResolve === 'function') {
+      this._privacyResolve({ event: 'agree', buttonId: 'agree-btn' });
+      this._privacyResolve = null;
+    }
+  },
+  onRejectPrivacy() {
+    this.setData({ showPrivacy: false });
+    if (typeof this._privacyResolve === 'function') {
+      this._privacyResolve({ event: 'disagree' });
+      this._privacyResolve = null;
+    }
+  },
+  goPrivacyDetail() {
+    wx.navigateTo({ url: '/pages/privacy/privacy' });
   },
 
   // 申诉入口
