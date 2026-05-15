@@ -7,6 +7,7 @@ Page({
    */
   data: {
     companyData: [],
+    isSearch: false,
     // 隐私授权弹窗
     showPrivacy: false,
     privacyContractName: '《隐私政策》'
@@ -26,7 +27,7 @@ Page({
   async initAllData(){
     // 默认加载公司列表
     const companyData = await Company.searchByKeyword('');
-    this.setData({ companyData });
+    this.setData({ companyData, isSearch: false });
   },
 
   /**
@@ -81,7 +82,8 @@ Page({
   async endsearchList(e) {
     const keyword = e.detail.value;
     const companyData = await Company.searchByKeyword(keyword);
-    this.setData({ companyData });
+    const isSearch = !!(keyword && keyword.trim().length > 0);
+    this.setData({ companyData, isSearch });
   },
 
   // 跳转：投稿须知 / 隐私政策 / 申诉反馈

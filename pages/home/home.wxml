@@ -64,7 +64,7 @@
 
   <!-- 分区标题 -->
   <view class="section-header">
-    <view class="section-title">风险线索</view>
+    <view class="section-title">{{isSearch ? '搜索结果' : '热门企业'}}</view>
     <view class="section-extra">仅供参考</view>
   </view>
 

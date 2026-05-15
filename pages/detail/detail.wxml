@@ -111,6 +111,7 @@
           <text class="sal-range-low">{{salary.min}}</text>
           <view class="sal-range-bar">
             <view class="sal-range-bar-inner"></view>
+            <view class="sal-range-indicator" style="left: {{salary.avgPercent}}%"></view>
           </view>
           <text class="sal-range-high">{{salary.max}}</text>
         </view>
@@ -208,7 +209,10 @@
                   active-color="#FFDD55" inActive-color="#FFF5CE" />
           <!-- 主体：内容 + 标签 + 元信息 -->
           <view class="rev-card-body">
-            <view class="rev-item-content">{{r.content}}</view>
+            <view class="rev-item-content {{!r.expanded ? 'rev-item-content-clamp' : ''}}">{{r.content}}</view>
+            <view class="rev-item-expand" wx:if="{{r.content.length > 80}}" data-index="{{index}}" bindtap="toggleReviewExpand">
+              {{r.expanded ? '收起' : '展开'}}
+            </view>
             <view class="rev-item-tags" wx:if="{{r.tags && r.tags.length}}">
               <l-tag wx:for="{{r.tags}}" wx:for-item="t" wx:key="*this"
                      shape="circle" size="mini"
@@ -251,4 +255,22 @@
   </view>
 </view>
 
-<view class="d-loading" wx:else>加载中...</view>
+<view class="skeleton-container" wx:else>
+  <view class="skeleton-header">
+    <view class="skeleton-logo"></view>
+    <view class="skeleton-title">
+      <view class="skeleton-line" style="width: 60%;"></view>
+      <view class="skeleton-line" style="width: 40%;"></view>
+    </view>
+  </view>
+  <view class="skeleton-tabs">
+    <view class="skeleton-tab"></view>
+    <view class="skeleton-tab"></view>
+    <view class="skeleton-tab"></view>
+  </view>
+  <view class="skeleton-content">
+    <view class="skeleton-line" style="width: 100%;"></view>
+    <view class="skeleton-line" style="width: 100%;"></view>
+    <view class="skeleton-line" style="width: 80%;"></view>
+  </view>
+</view>

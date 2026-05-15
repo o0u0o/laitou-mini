@@ -54,7 +54,12 @@ Page({
   copyCode() {
     const code = this.data.company && this.data.company.socialCreditCode;
     if (!code) return;
-    wx.setClipboardData({ data: code });
+    wx.setClipboardData({ 
+      data: code,
+      success: () => {
+        wx.showToast({ title: '复制成功', icon: 'success' });
+      }
+    });
   },
 
   // 申诉入口
@@ -72,6 +77,16 @@ Page({
     wx.navigateTo({ url: '/pages/contribute/contribute?type=review&companyId=' + (this.data.company && this.data.company.id || '') });
   },
 
+  // 展开/收起点评
+  toggleReviewExpand(e) {
+    const index = e.currentTarget.dataset.index;
+    const key = `review.list[${index}].expanded`;
+    const current = this.data.review.list[index].expanded;
+    this.setData({
+      [key]: !current
+    });
+  },
+
   /**
    * 薪资视图模型
    * 数据来源优先级：company.salaries（用户爆料数组） > 空态
@@ -86,6 +101,11 @@ Page({
     const avg = amounts.length ? Math.round(sum / amounts.length) : 0;
     const min = amounts.length ? Math.min.apply(null, amounts) : 0;
     const max = amounts.length ? Math.max.apply(null, amounts) : 0;
+
+    let avgPercent = 50;
+    if (min !== max) {
+      avgPercent = Math.round(((avg - min) / (max - min)) * 100);
+    }
 
     // 按岗位聚合
     const jobMap = {};
@@ -108,7 +128,7 @@ Page({
 
     return {
       total: list.length,
-      avg, min, max,
+      avg, min, max, avgPercent,
       byJob,
       list: sortedList
     };
