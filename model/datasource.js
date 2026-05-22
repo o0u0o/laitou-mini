@@ -29,19 +29,11 @@ function normalize(c) {
   const remark = c.remark || '';
   const source = c.source || '';
 
-  // 1) 法定代表人（优先字段，其次从 remark 抓）
-  let legalRepresentative = c.legalRepresentative;
-  if (!legalRepresentative) {
-    const m = remark.match(/法定代表人[：:]\s*([^\s。，,；;]+)/);
-    legalRepresentative = m ? m[1] : '未公开';
-  }
+  // 1) 法定代表人（结构化字段 legal_rep_name，兼容旧字段 legalRepresentative）
+  const legalRepresentative = c.legal_rep_name || c.legalRepresentative || '未公开';
 
-  // 2) 统一社会信用代码
-  let socialCreditCode = c.socialCreditCode;
-  if (!socialCreditCode) {
-    const m = source.match(/统一社会信用代码[：:]\s*([0-9A-Z]{15,18})/);
-    socialCreditCode = m ? m[1] : '';
-  }
+  // 2) 统一社会信用代码（结构化字段 uscc，兼容旧字段 socialCreditCode）
+  const socialCreditCode = c.uscc || c.socialCreditCode || '';
 
   // 3) 经营状态：默认存续；remark 出现"注销"则注销
   let status = c.status;
