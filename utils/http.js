@@ -22,7 +22,7 @@ class Http {
     let res;
     try {
       res = await promisic(wx.request)({
-        url: `${config.apiBaseUrl}${url}`,
+        url: Http._joinUrl(config.apiBaseUrl, url),
         data,
         method,
         timeout: 15000,
@@ -54,6 +54,13 @@ class Http {
 
   static _toast(title) {
     wx.showToast({ title, icon: 'none', duration: 2000 });
+  }
+
+  // 拼接 baseUrl 与路由，容忍边界斜杠，避免出现 // 双斜杠
+  static _joinUrl(base, path) {
+    const b = (base || '').replace(/\/+$/, '');
+    const p = (path || '').replace(/^\/+/, '');
+    return `${b}/${p}`;
   }
 }
 
