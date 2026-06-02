@@ -1,16 +1,15 @@
 import {Company} from "../../model/company";
+import { withPrivacy } from "../../utils/privacy";
 
-Page({
+Page(withPrivacy({
 
   /**
    * 页面的初始数据
    */
   data: {
     companyData: [],
-    isSearch: false,
-    // 隐私授权弹窗
-    showPrivacy: false,
-    privacyContractName: '《隐私政策》'
+    isSearch: false
+    // 隐私授权字段（showPrivacy / privacyContractName）由 withPrivacy 注入
   },
 
   /**
@@ -28,54 +27,6 @@ Page({
     // 默认加载公司列表
     const res = await Company.searchByKeyword('');
     this.setData({ companyData: (res && res.companys) || [], isSearch: false });
-  },
-
-  /**
-   * 隐私授权检查（基础库 >= 2.32.3 + app.json 中 __usePrivacyCheck__:true 时生效）
-   *  - 首次进入若未同意则弹窗
-   *  - 收到隐私接口需要授权事件时也弹窗（onNeedPrivacyAuthorization）
-   */
-  checkPrivacy() {
-    if (!wx.getPrivacySetting) return; // 老基础库直接放行
-    wx.getPrivacySetting({
-      success: (res) => {
-        if (res.needAuthorization) {
-          this.setData({
-            showPrivacy: true,
-            privacyContractName: res.privacyContractName || '《隐私政策》'
-          });
-        }
-      }
-    });
-    if (wx.onNeedPrivacyAuthorization) {
-      wx.onNeedPrivacyAuthorization((resolve) => {
-        this._privacyResolve = resolve;
-        this.setData({ showPrivacy: true });
-      });
-    }
-  },
-
-  // 同意（由 <button open-type="agreePrivacyAuthorization"> 触发）
-  onAgreePrivacy() {
-    this.setData({ showPrivacy: false });
-    if (typeof this._privacyResolve === 'function') {
-      this._privacyResolve({ event: 'agree', buttonId: 'agree-btn' });
-      this._privacyResolve = null;
-    }
-  },
-
-  // 拒绝
-  onRejectPrivacy() {
-    this.setData({ showPrivacy: false });
-    if (typeof this._privacyResolve === 'function') {
-      this._privacyResolve({ event: 'disagree' });
-      this._privacyResolve = null;
-    }
-  },
-
-  // 弹窗内查看隐私政策详情
-  goPrivacyDetail() {
-    wx.navigateTo({ url: '/pages/privacy/privacy' });
   },
 
   // 搜索
@@ -102,4 +53,4 @@ Page({
     const kw = e.currentTarget.dataset.kw;
     this.endsearchList({ detail: { value: kw } });
   }
-})
+}))

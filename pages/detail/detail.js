@@ -1,16 +1,15 @@
 // pages/detail/detail.js
 import { Company } from "../../model/company";
+import { withPrivacy } from "../../utils/privacy";
 
-Page({
+Page(withPrivacy({
   data: {
     company: null,
     activeTab: 0,    // 0=基本信息  1=薪资  2=点评
     activeKey: '0', // l-segment 需要字符串 key
     salary: { total: 0 },
     review: { total: 0 },
-    // 隐私授权弹窗
-    showPrivacy: false,
-    privacyContractName: '《隐私政策》',
+    // 隐私授权字段（showPrivacy / privacyContractName）由 withPrivacy 注入
     // 默认匿名头像（当找不到匹配时作为备用）
     defaultAvatar: '/imgs/avatar/1.png',
     // l-rate 的五角星图标（lin-ui 自带图标为爱心）
@@ -19,7 +18,7 @@ Page({
   },
 
   async onLoad(options) {
-    this._initPrivacy();
+    this.registerPrivacyListener();
     const id = options && options.id;
     if (!id) {
       wx.showToast({ title: '缺少参数 id', icon: 'none' });
@@ -78,38 +77,7 @@ Page({
     }
   },
 
-  // —— 隐私授权（基础库 >= 2.32.3 + __usePrivacyCheck__:true 时生效） ——
-  _initPrivacy() {
-    if (!wx.onNeedPrivacyAuthorization) return;
-    wx.onNeedPrivacyAuthorization((resolve) => {
-      this._privacyResolve = resolve;
-      wx.getPrivacySetting && wx.getPrivacySetting({
-        success: (res) => {
-          this.setData({
-            showPrivacy: true,
-            privacyContractName: res.privacyContractName || '《隐私政策》'
-          });
-        }
-      });
-    });
-  },
-  onAgreePrivacy() {
-    this.setData({ showPrivacy: false });
-    if (typeof this._privacyResolve === 'function') {
-      this._privacyResolve({ event: 'agree', buttonId: 'agree-btn' });
-      this._privacyResolve = null;
-    }
-  },
-  onRejectPrivacy() {
-    this.setData({ showPrivacy: false });
-    if (typeof this._privacyResolve === 'function') {
-      this._privacyResolve({ event: 'disagree' });
-      this._privacyResolve = null;
-    }
-  },
-  goPrivacyDetail() {
-    wx.navigateTo({ url: '/pages/privacy/privacy' });
-  },
+  // —— 隐私授权逻辑由 utils/privacy.js 统一提供 ——
 
   // 申诉入口
   goAppeal() {
@@ -239,4 +207,4 @@ Page({
       list: sortedList
     };
   }
-})
+}))
