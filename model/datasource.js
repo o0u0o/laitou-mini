@@ -76,8 +76,7 @@ class DataSource {
       const filtered = localCompanies.companys.filter(
         c => c.city.indexOf(cityName) > -1
       );
-      const result = filtered.length ? filtered : localCompanies.companys;
-      return { companys: normalizeList(result) };
+      return { companys: normalizeList(filtered) };
     }
     return await Http.request({
       url: `/app/company/list/city/${cityName}`
@@ -96,8 +95,7 @@ class DataSource {
         (c.source && c.source.indexOf(kw) > -1) ||
         (c.remark && c.remark.indexOf(kw) > -1)
       );
-      const result = filtered.length ? filtered : localCompanies.companys;
-      return { companys: normalizeList(result) };
+      return { companys: normalizeList(filtered) };
     }
     return await Http.request({
       url: '/app/company/list/like',
