@@ -26,8 +26,8 @@ Page({
    */
   async initAllData(){
     // 默认加载公司列表
-    const companyData = await Company.searchByKeyword('');
-    this.setData({ companyData, isSearch: false });
+    const res = await Company.searchByKeyword('');
+    this.setData({ companyData: (res && res.companys) || [], isSearch: false });
   },
 
   /**
@@ -81,9 +81,9 @@ Page({
   // 搜索
   async endsearchList(e) {
     const keyword = e.detail.value;
-    const companyData = await Company.searchByKeyword(keyword);
+    const res = await Company.searchByKeyword(keyword);
     const isSearch = !!(keyword && keyword.trim().length > 0);
-    this.setData({ companyData, isSearch });
+    this.setData({ companyData: (res && res.companys) || [], isSearch });
   },
 
   // 跳转：投稿须知 / 隐私政策 / 申诉反馈

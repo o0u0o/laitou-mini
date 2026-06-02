@@ -69,7 +69,7 @@
   </view>
 
   <!-- 公司卡片列表 -->
-  <block wx:for="{{companyData.companys}}" wx:key="id">
+  <block wx:for="{{companyData}}" wx:key="id">
     <view class="card-wrap" data-id="{{item.id}}" bindtap="goDetail" hover-class="card-hover">
 
       <!-- ① 顶部：Logo + 公司名（省略） + 跳转箭头 -->
