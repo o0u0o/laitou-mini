@@ -123,6 +123,15 @@
     </view>
   </block>
 
+  <!-- 空态：无搜索结果 -->
+  <view class="empty-state" wx:if="{{companyData.length === 0}}">
+    <view class="empty-state-title">{{isSearch ? '没有找到相关企业' : '暂无企业数据'}}</view>
+    <view class="empty-state-tip" wx:if="{{isSearch}}">换个关键词试试，或者通过下方入口反馈线索</view>
+    <view class="empty-state-actions" wx:if="{{isSearch}}">
+      <view class="empty-state-btn" bindtap="goAppeal">提交线索 / 反馈</view>
+    </view>
+  </view>
+
   <!-- 页脚链接 -->
   <view class="footer-links">
     <text class="link" bindtap="goNotice">投稿须知</text>
